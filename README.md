@@ -1,0 +1,1 @@
+# contentstack-cli-content-type
