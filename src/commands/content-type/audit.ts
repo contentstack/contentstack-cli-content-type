@@ -3,7 +3,7 @@ import {flags} from '@contentstack/cli-command'
 import buildOutput from '../../core/content-type/audit'
 
 export default class AuditCommand extends Command {
-  static description = 'display audit logs for recent changes to a Content Type';
+  static description = 'display Audit Logs for recent changes to a Content Type';
 
   static examples = [
     '$ csdx content-type:audit -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"',
@@ -43,15 +43,8 @@ export default class AuditCommand extends Command {
         this.client.getUsers(this.apiKey),
       ])
 
-      this.log(`Displaying audit logs for '${flags['content-type']}' on '${stack.name}.'\n`)
-
       const output = buildOutput(audit.logs, users)
-
-      if (output.hasRows) {
-        this.log(output.body)
-      } else {
-        this.log('No audit logs found.')
-      }
+      this.printOutput(output, 'Audit Logs', flags['content-type'], stack.name)
     } catch (error) {
       this.error(error, {exit: 1, suggestions: error.suggestions})
     }

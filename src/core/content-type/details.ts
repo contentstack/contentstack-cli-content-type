@@ -1,16 +1,18 @@
 import * as tableImport from 'table'
+import { BuildOutput } from './build-output'
 import * as format from './formatting'
 
 const {table} = tableImport
 
-export default function buildOutput(contentType: any, references: any) {
+export default function buildOutput(contentType: any, references: any): BuildOutput {
   const header = buildHeader(contentType.content_type, references.references)
   const body = buildBody(contentType.content_type.schema)
 
   return {
     header: header,
     body: body.body,
-    hasRows: body.hasRows,
+    footer: null,
+    hasResults: body.hasRows,
   }
 }
 

@@ -1,12 +1,11 @@
 import cli from 'cli-ux'
+import * as fs from 'fs'
+import * as tmp from 'tmp'
+import * as Diff2html from 'diff2html'
+import gitDiff from 'git-diff'
+import { BuildOutput } from './build-output'
 
-const Diff2html = require('diff2html')
-const gitDiff = require('git-diff')
-
-const tmp = require('tmp')
-const fs = require('fs')
-
-export default async function buildOutput(contentTypeName: string, previous: any, current: any) {
+export default async function buildOutput(contentTypeName: string, previous: any, current: any): Promise<BuildOutput> {
   const diffString = buildDiffString(previous, current)
   const diffTree = Diff2html.parse(diffString)
   const diffHtml = Diff2html.html(diffTree, {
@@ -20,6 +19,13 @@ export default async function buildOutput(contentTypeName: string, previous: any
     fs.writeFileSync(path, html(diffHtml))
     await cli.open(path)
   })
+
+  return {
+    header: null,
+    body: 'Please check the browser output.',
+    footer: null,
+    hasResults: true
+  }
 }
 
 function buildDiffString(previous: any, current: any) {

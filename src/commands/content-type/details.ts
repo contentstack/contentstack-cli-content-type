@@ -43,15 +43,8 @@ export default class DetailsCommand extends Command {
         this.client.getContentTypeReferences(this.apiKey, flags['content-type']),
       ])
 
-      this.log(`Displaying details for '${flags['content-type']}' on '${stack.name}.'`)
       const output = buildOutput(contentType, references)
-
-      if (output.hasRows) {
-        this.log(output.header)
-        this.log(output.body)
-      } else {
-        this.log('No details found.')
-      }
+      this.printOutput(output, 'details', flags['content-type'], stack.name)
     } catch (error) {
       this.error(error, {exit: 1, suggestions: error.suggestions})
     }

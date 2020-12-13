@@ -1,12 +1,6 @@
 import axios, {AxiosInstance} from 'axios'
 import ContentstackError from './error'
 
-export interface Organization {
-  uid: string;
-  name: string;
-  enabled: boolean;
-}
-
 export interface Stack {
   uid: string;
   name: string;
@@ -45,24 +39,28 @@ export default class ContentstackClient {
         uid: stack.uid,
       } as Stack
     } catch (error) {
-      const data = error.response.data
-      throw new ContentstackError(data.error_message, data.error_code)
+      throw this.buildError(error)
     }
   }
 
   async getUsers(api_key: string): Promise<any> {
-    const response = await this.instance.get('/stacks', {
-      params: {
-        include_collaborators: true,
-      },
-      headers: {api_key},
-    })
-
-    return response.data.stack.collaborators
+    try {
+      const response = await this.instance.get('/stacks', {
+        params: {
+          include_collaborators: true,
+        },
+        headers: {api_key},
+      })
+  
+      return response.data.stack.collaborators
+    } catch (error) {
+      throw this.buildError(error)
+    }
   }
 
   async getContentTypeAuditLogs(api_key: string, uid: string): Promise<any> {
-    const response = await this.instance.get('/audit-logs',
+    try {
+      const response = await this.instance.get('/audit-logs',
       {
         params: {
           query: {$and: [{module: 'content_type'}, {'metadata.uid': uid}]},
@@ -70,7 +68,10 @@ export default class ContentstackClient {
         headers: {api_key},
       })
 
-    return response.data
+      return response.data
+    } catch (error) {
+      throw this.buildError(error)
+    }
   }
 
   async getContentTypeReferences(api_key: string, uid: string): Promise<any> {
@@ -86,8 +87,7 @@ export default class ContentstackClient {
 
       return response.data
     } catch (error) {
-      const data = error.response.data
-      throw new ContentstackError(data.error_message, data.error_code)
+      throw this.buildError(error)
     }
   }
 
@@ -105,20 +105,29 @@ export default class ContentstackClient {
 
       return response.data
     } catch (error) {
-      const data = error.response.data
-      throw new ContentstackError(data.error_message, data.error_code)
+      throw this.buildError(error)
     }
   }
 
   async getContentTypes(api_key: string, includeGlobalFields = false): Promise<any> {
-    const response = await this.instance.get('/content_types', {
-      params: {
-        api_key: api_key,
-        include_count: true,
-        include_global_field_schema: includeGlobalFields,
-      },
-    })
+    try {
+      const response = await this.instance.get('/content_types', {
+        params: {
+          api_key: api_key,
+          include_count: true,
+          include_global_field_schema: includeGlobalFields,
+        },
+      })
+  
+      return response.data
+    } catch (error) {
+      throw this.buildError(error)
+    }
+  }
 
-    return response.data
+  private buildError(error: any) {
+    const data = error?.response?.data
+    if (!data) return new Error('Unrecognized error. Please try again.')
+    return new ContentstackError(data.error_message, data.error_code)
   }
 }

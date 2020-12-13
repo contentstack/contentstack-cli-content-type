@@ -1,9 +1,10 @@
 import * as tableImport from 'table'
+import { BuildOutput } from './build-output'
 import * as format from './formatting'
 
 const {table} = tableImport
 
-export default function buildOutput(logs: any, users: any) {
+export default function buildOutput(logs: any, users: any): BuildOutput {
   const rows = []
 
   rows.push(['Event', 'User', 'Modified', 'Version'])
@@ -18,7 +19,9 @@ export default function buildOutput(logs: any, users: any) {
   }
 
   return {
+    header: null,
     body: table(rows),
-    hasRows: rows.length > 1,
+    footer: null,
+    hasResults: rows.length > 1,
   }
 }

@@ -1,4 +1,5 @@
 import {Command} from '@contentstack/cli-command'
+import { BuildOutput } from '../core/content-type/build-output';
 import ContentstackClient from '../core/contentstack/client'
 
 export default class ContentTypeCommand extends Command {
@@ -28,5 +29,26 @@ export default class ContentTypeCommand extends Command {
       }
 
       this.client = new ContentstackClient(this.cmaHost, this.authToken)
+    }
+
+    printOutput(output: BuildOutput, who: string, what: string | null, where: string) {
+      this.log(`Displaying ${who} ${what ? `for ${what}` : ''} on '${where}.'`)
+      this.log('---\n')
+
+      if (output.hasResults) {
+        if (output.header) {
+          this.log(output.header)
+        }
+
+        if (output.body) {
+          this.log(output.body)
+        }
+
+        if (output.footer) {
+          this.log(output.footer)
+        }
+      } else {
+        this.log(`No ${who} found.`)
+      }
     }
 }
