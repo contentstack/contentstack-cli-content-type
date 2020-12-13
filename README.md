@@ -55,7 +55,7 @@ _See code: [src/commands/command.ts](https://github.com/Contentstack-Solutions/c
 
 ## `csdx content-type:audit`
 
-display audit logs for recent changes to a Content Type
+display Audit Logs for recent changes to a Content Type
 
 ```
 USAGE
@@ -84,14 +84,14 @@ USAGE
 OPTIONS
   -a, --token-alias=token-alias    management token alias
   -c, --content-type=content-type  (required) Content Type UID
-  -l, --left=left                  (required) previous Content Type version
-  -r, --right=right                (required) current Content Type version
+  -l, --left=left                  (required) Content Type version
+  -r, --right=right                (required) Content Type version
   -s, --stack=stack                stack uid
 
 EXAMPLES
   $ csdx content-type:compare -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"
-  $ csdx content-type:compare -s "xxxxxxxxxxxxxxxxxxx" -c "home_page" -left # -right #
-  $ csdx content-type:compare -a "management token" -c "home_page" -left # -right #
+  $ csdx content-type:compare -s "xxxxxxxxxxxxxxxxxxx" -c "home_page" -l # -r #
+  $ csdx content-type:compare -a "management token" -c "home_page" -l # -r #
 ```
 
 _See code: [src/commands/content-type/compare.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.0/src/commands/content-type/compare.ts)_
@@ -107,11 +107,13 @@ USAGE
 OPTIONS
   -a, --token-alias=token-alias    management token alias
   -c, --content-type=content-type  (required) Content Type UID
+  -p, --[no-]path                  show path column
   -s, --stack=stack                stack uid
 
 EXAMPLES
   $ csdx content-type:details -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"
   $ csdx content-type:details -a "management token" -c "home_page"
+  $ csdx content-type:details -a "management token" -c "home_page" --no-path
 ```
 
 _See code: [src/commands/content-type/details.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.0/src/commands/content-type/details.ts)_
