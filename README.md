@@ -14,22 +14,9 @@ $ csdx plugins:install contentstack-cli-content-type
 ## How to use this plugin
 
 <!-- toc -->
-* [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
-# Usage
-<!-- usage -->
-```sh-session
-$ npm install -g contentstack-cli-content-type
-$ csdx COMMAND
-running command...
-$ csdx (-v|--version|version)
-contentstack-cli-content-type/1.0.0 darwin-x64 node-v12.16.1
-$ csdx --help [COMMAND]
-USAGE
-  $ csdx COMMAND
-...
-```
+
 <!-- usagestop -->
 # Commands
 <!-- commands -->
@@ -37,6 +24,21 @@ USAGE
 * [`csdx content-type:compare`](#csdx-content-typecompare)
 * [`csdx content-type:details`](#csdx-content-typedetails)
 * [`csdx content-type:list`](#csdx-content-typelist)
+
+## `csdx content-type`
+
+retrieve information about Content Types in a Stack.
+
+```
+USAGE
+  $ csdx content-type
+
+COMMANDS
+  content-type:audit    display Audit Logs for recent changes to a Content Type
+  content-type:compare  compare two Content Type versions
+  content-type:details  display Content Type details
+  content-type:list     list all Content Types in a Stack
+```
 
 ## `csdx content-type:audit`
 
