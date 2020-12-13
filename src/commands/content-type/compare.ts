@@ -36,14 +36,16 @@ export default class CompareCommand extends Command {
 
     left: flags.integer({
       char: 'l',
-      description: 'Content Type version',
-      required: true,
+      description: 'Content Type version, i.e. prev version',
+      required: false,
+      dependsOn: ['right']
     }),
 
     right: flags.integer({
       char: 'r',
-      description: 'Content Type version',
-      required: true,
+      description: 'Content Type version, i.e. later version',
+      required: false,
+      dependsOn: ['left']
     }),
   }
 
@@ -53,6 +55,16 @@ export default class CompareCommand extends Command {
       this.setup(flags)
 
       cli.action.start(Command.RequestDataMessage)
+      
+      if (!flags.left) {
+        const discovery = await this.client.getContentType(this.apiKey, flags['content-type'], false);
+        const version = discovery.content_type._version;
+
+        flags.left = version;
+        flags.right = version > 1 ? version - 1 : version;
+
+        this.log(`Comparing versions: ${flags.left} <-> ${flags.right}.`)
+      }
 
       const [stack, previous, current] = await Promise.all([
         this.client.getStack(this.apiKey),
@@ -64,6 +76,10 @@ export default class CompareCommand extends Command {
 
       const output = await buildOutput(flags['content-type'], previous, current)
       this.printOutput(output, 'changes', flags['content-type'], stack.name)
+
+      if (flags.left && flags.left === flags.right) {
+        this.warn('Comparing the same version does not produce useful results.')
+      }
     } catch (error) {
       this.error(error, {exit: 1, suggestions: error.suggestions})
     }

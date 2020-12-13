@@ -9,6 +9,7 @@ export default class DetailsCommand extends Command {
   static examples = [
     '$ csdx content-type:details -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"',
     '$ csdx content-type:details -a "management token" -c "home_page"',
+    '$ csdx content-type:details -a "management token" -c "home_page" --no-path',
   ];
 
   static flags = {
@@ -31,6 +32,13 @@ export default class DetailsCommand extends Command {
       description: 'Content Type UID',
       required: true,
     }),
+
+    path: flags.boolean({
+      char: 'p',
+      description: 'show path column',
+      default: true,
+      allowNo: true,
+    }),
   }
 
   async run() {
@@ -48,7 +56,7 @@ export default class DetailsCommand extends Command {
 
       cli.action.stop()
 
-      const output = buildOutput(contentType, references)
+      const output = buildOutput(contentType, references, {showPath: flags.path})
       this.printOutput(output, 'details', flags['content-type'], stack.name)
     } catch (error) {
       this.error(error, {exit: 1, suggestions: error.suggestions})

@@ -9,6 +9,7 @@
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
     "@types/git-diff": "^2.0.0",
+    "@types/hogan.js": "^3.0.0",
     "@types/table": "^6.0.0",
     "@types/tmp": "^0.2.0",
     "axios": "^0.21.0",

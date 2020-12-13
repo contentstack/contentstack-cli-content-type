@@ -4,7 +4,13 @@ import * as format from './formatting'
 
 const {table} = tableImport
 
-export default function buildOutput(contentType: any, references: any): BuildOutput {
+let buildOptions = {
+  showPath: true,
+}
+
+export default function buildOutput(contentType: any, references: any, options: any): BuildOutput {
+  buildOptions = Object.assign(buildOptions, options)
+
   const header = buildHeader(contentType.content_type, references.references)
   const body = buildBody(contentType.content_type.schema)
 
@@ -19,7 +25,15 @@ export default function buildOutput(contentType: any, references: any): BuildOut
 function buildBody(schema: any) {
   const rows = []
 
-  rows.push(['Display Name', 'UID', 'Data Type', 'Path', 'Required', 'Multiple', 'Unique'])
+  const headers = [
+    'Display Name',
+    'UID',
+    'Data Type',
+    buildOptions.showPath ? 'Path' : null,
+    'Req | Mult | Unique',
+  ].filter(v => v !== null)
+
+  rows.push(headers)
   rows.push(...processFields(schema))
 
   return {
@@ -59,11 +73,9 @@ function buildRow(field: any, parent = null, depth = 0, prefix = '') {
     displayName,
     field.uid,
     field.data_type,
-    path,
-    format.checked(field.mandatory),
-    format.checked(field.multiple),
-    format.checked(field.unique),
-  ]
+    buildOptions.showPath ? path : null,
+    buildOptionsColumn(field),
+  ].filter(v => v !== null)
 }
 
 function buildHeader(contentType: any, references: string[]) {
@@ -87,4 +99,22 @@ function buildHeader(contentType: any, references: string[]) {
   result.push(table(details))
 
   return result.join('\n')
+}
+
+function buildOptionsColumn(field: any) {
+  let output = ''
+
+  if (field.mandatory) {
+    output += 'R'
+  }
+
+  if (field.multiple) {
+    output += 'M'
+  }
+
+  if (field.unique) {
+    output += 'U'
+  }
+
+  return output
 }

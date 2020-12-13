@@ -4,7 +4,9 @@ import ContentstackClient from '../core/contentstack/client'
 
 export default class ContentTypeCommand extends Command {
   protected static RequestDataMessage = 'Requesting data';
+
   protected apiKey!: string;
+
   protected client!: ContentstackClient;
 
   setup(flags: any) {
