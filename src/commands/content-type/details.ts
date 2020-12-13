@@ -1,4 +1,4 @@
-import Command from '../command'
+import Command from '../../core/command'
 import {flags} from '@contentstack/cli-command'
 import buildOutput from '../../core/content-type/details'
 import cli from 'cli-ux'
