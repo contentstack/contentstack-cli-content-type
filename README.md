@@ -1,12 +1,17 @@
 contentstack-cli-content-type
 ===
 
-Retrieve information about Content Types in a Stack.
+## Description
+This is a plugin for [Contentstack's](https://www.contentstack.com/) CLI.
+It allows you to quickly retrieve information about Content Types in a Stack.
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/evo.svg)](https://npmjs.org/package/evo)
-[![Downloads/week](https://img.shields.io/npm/dw/evo.svg)](https://npmjs.org/package/evo)
-[![License](https://img.shields.io/npm/l/evo.svg)](https://github.com/Garbage/evo/blob/master/package.json)
+## How to install this plugin
+
+```shell
+$ csdx plugins:install contentstack-cli-content-type
+```
+
+## How to use this plugin
 
 <!-- toc -->
 * [Usage](#usage)
@@ -28,30 +33,10 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`csdx `](#csdx-)
-* [`csdx command`](#csdx-command)
 * [`csdx content-type:audit`](#csdx-content-typeaudit)
 * [`csdx content-type:compare`](#csdx-content-typecompare)
 * [`csdx content-type:details`](#csdx-content-typedetails)
 * [`csdx content-type:list`](#csdx-content-typelist)
-
-## `csdx `
-
-```
-USAGE
-  $ csdx
-```
-
-_See code: [src/commands/index.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.0/src/commands/index.ts)_
-
-## `csdx command`
-
-```
-USAGE
-  $ csdx command
-```
-
-_See code: [src/commands/command.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.0/src/commands/command.ts)_
 
 ## `csdx content-type:audit`
 
