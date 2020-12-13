@@ -1,6 +1,6 @@
 import {Command} from '@contentstack/cli-command'
-import {BuildOutput} from '../core/content-type/build-output'
-import ContentstackClient from '../core/contentstack/client'
+import {BuildOutput} from './content-type/build-output'
+import ContentstackClient from './contentstack/client'
 
 export default class ContentTypeCommand extends Command {
   protected static RequestDataMessage = 'Requesting data';
