@@ -37,8 +37,7 @@ export default class DetailsCommand extends Command {
       const {flags} = this.parse(DetailsCommand)
       this.setup(flags)
 
-      const [stack, contentType, references] = await Promise.all
-      ([
+      const [stack, contentType, references] = await Promise.all([
         this.client.getStack(this.apiKey),
         this.client.getContentType(this.apiKey, flags['content-type'], true),
         this.client.getContentTypeReferences(this.apiKey, flags['content-type']),
