@@ -25,21 +25,6 @@ $ csdx plugins:install contentstack-cli-content-type
 * [`csdx content-type:details`](#csdx-content-typedetails)
 * [`csdx content-type:list`](#csdx-content-typelist)
 
-## `csdx content-type`
-
-retrieve information about Content Types in a Stack.
-
-```
-USAGE
-  $ csdx content-type
-
-COMMANDS
-  content-type:audit    display Audit Logs for recent changes to a Content Type
-  content-type:compare  compare two Content Type versions
-  content-type:details  display Content Type details
-  content-type:list     list all Content Types in a Stack
-```
-
 ## `csdx content-type:audit`
 
 display Audit Logs for recent changes to a Content Type
@@ -71,8 +56,8 @@ USAGE
 OPTIONS
   -a, --token-alias=token-alias    management token alias
   -c, --content-type=content-type  (required) Content Type UID
-  -l, --left=left                  (required) Content Type version
-  -r, --right=right                (required) Content Type version
+  -l, --left=left                  Content Type version, i.e. prev version
+  -r, --right=right                Content Type version, i.e. later version
   -s, --stack=stack                stack uid
 
 EXAMPLES
