@@ -46,15 +46,7 @@ export default class ListCommand extends Command {
       ])
 
       const output = buildOutput(contentTypes, flags.order)
-
-      this.log(`Displaying Content Types for '${stack.name}.'\n`)
-
-      if (output.hasRows) {
-        this.log(output.body)
-        this.log(output.footer)
-      } else {
-        this.log('No Content Types found.')
-      }
+      this.printOutput(output, 'Content Types', null, stack.name)
     } catch (error) {
       this.error(error, {exit: 1, suggestions: error.suggestions})
     }

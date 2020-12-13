@@ -7,8 +7,8 @@ export default class CompareCommand extends Command {
 
   static examples = [
     '$ csdx content-type:compare -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"',
-    '$ csdx content-type:compare -s "xxxxxxxxxxxxxxxxxxx" -c "home_page" -left # -right #',
-    '$ csdx content-type:compare -a "management token" -c "home_page" -left # -right #',
+    '$ csdx content-type:compare -s "xxxxxxxxxxxxxxxxxxx" -c "home_page" -l # -r #',
+    '$ csdx content-type:compare -a "management token" -c "home_page" -l # -r #',
   ];
 
   static flags = {
@@ -35,13 +35,13 @@ export default class CompareCommand extends Command {
 
     left: flags.integer({
       char: 'l',
-      description: 'previous Content Type version',
+      description: 'Content Type version',
       required: true,
     }),
 
     right: flags.integer({
       char: 'r',
-      description: 'current Content Type version',
+      description: 'Content Type version',
       required: true,
     }),
   }
@@ -57,8 +57,8 @@ export default class CompareCommand extends Command {
         this.client.getContentType(this.apiKey, flags['content-type'], true, flags.right),
       ])
 
-      this.log(`Displaying details for '${flags['content-type']}' on '${stack.name}.'`)
-      await buildOutput(flags['content-type'], previous, current)
+      const output = await buildOutput(flags['content-type'], previous, current)
+      this.printOutput(output, 'changes', flags['content-type'], stack.name)
     } catch (error) {
       this.error(error, {exit: 1, suggestions: error.suggestions})
     }
