@@ -49,7 +49,7 @@ function processFields(schema: any, parent = null, depth = 0, prefix = ''): any 
 }
 
 function buildRow(field: any, parent = null, depth = 0, prefix = '') {
-  const dots = '.'.repeat(depth == 0 ? 0 : depth * 2)
+  const dots = '.'.repeat(depth === 0 ? 0 : depth * 2)
   const displayName = `${prefix ? dots : ''}${parent ? '[' + parent + '] ' : ''}${field.display_name}`
   const path = `${prefix ? prefix + '.' : ''}${field.uid}`
 
@@ -69,7 +69,7 @@ function buildHeader(contentType: any, references: string[]) {
   const details = []
 
   result.push(`Description: ${contentType.description ? contentType.description : 'None'}`)
-  result.push(`Referenced By: ${references.length ? references.join(', ') : 'None'}\n`)
+  result.push(`Referenced By: ${references.length > 0 ? references.join(', ') : 'None'}\n`)
 
   details.push(['Type', 'Multiple', 'URL Pattern', 'Created', 'Modified', 'Version'])
 

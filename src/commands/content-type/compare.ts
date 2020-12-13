@@ -51,8 +51,7 @@ export default class CompareCommand extends Command {
       const {flags} = this.parse(CompareCommand)
       this.setup(flags)
 
-      const [stack, previous, current] = await Promise.all
-      ([
+      const [stack, previous, current] = await Promise.all([
         this.client.getStack(this.apiKey),
         this.client.getContentType(this.apiKey, flags['content-type'], true, flags.left),
         this.client.getContentType(this.apiKey, flags['content-type'], true, flags.right),

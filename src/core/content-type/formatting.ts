@@ -8,8 +8,8 @@ export function date(date: any) {
 }
 
 export function fullName(users: any, uid: string) {
-  if (!users || users.length == 0) return 'Unknown'
-  const user = users.find((u: any) => u.uid == uid)
+  if (!users || users.length === 0) return 'Unknown'
+  const user = users.find((u: any) => u.uid === uid)
   if (!user) return 'Unknown'
   return `${user.first_name} ${user.last_name}`
 }
