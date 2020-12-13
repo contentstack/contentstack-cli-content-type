@@ -1,5 +1,5 @@
 import * as tableImport from 'table'
-import { BuildOutput } from './build-output'
+import {BuildOutput} from './build-output'
 import * as format from './formatting'
 
 const {table} = tableImport

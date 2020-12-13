@@ -1,6 +1,7 @@
 import Command from '../command'
 import {flags} from '@contentstack/cli-command'
 import buildOutput from '../../core/content-type/details'
+import cli from 'cli-ux'
 
 export default class DetailsCommand extends Command {
   static description = 'display Content Type details';
@@ -37,11 +38,15 @@ export default class DetailsCommand extends Command {
       const {flags} = this.parse(DetailsCommand)
       this.setup(flags)
 
+      cli.action.start(Command.RequestDataMessage)
+
       const [stack, contentType, references] = await Promise.all([
         this.client.getStack(this.apiKey),
         this.client.getContentType(this.apiKey, flags['content-type'], true),
         this.client.getContentTypeReferences(this.apiKey, flags['content-type']),
       ])
+
+      cli.action.stop()
 
       const output = buildOutput(contentType, references)
       this.printOutput(output, 'details', flags['content-type'], stack.name)

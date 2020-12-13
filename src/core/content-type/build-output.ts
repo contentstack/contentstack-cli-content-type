@@ -1,6 +1,6 @@
 export type BuildOutput = {
-    header: string | null,
-    body: string,
-    footer: string | null,
-    hasResults: boolean
+    header: string | null;
+    body: string;
+    footer: string | null;
+    hasResults: boolean;
 }

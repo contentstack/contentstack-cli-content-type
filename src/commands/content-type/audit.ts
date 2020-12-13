@@ -1,5 +1,6 @@
 import Command from '../command'
 import {flags} from '@contentstack/cli-command'
+import cli from 'cli-ux'
 import buildOutput from '../../core/content-type/audit'
 
 export default class AuditCommand extends Command {
@@ -37,11 +38,15 @@ export default class AuditCommand extends Command {
       const {flags} = this.parse(AuditCommand)
       this.setup(flags)
 
+      cli.action.start(Command.RequestDataMessage)
+
       const [stack, audit, users] = await Promise.all([
         this.client.getStack(this.apiKey),
         this.client.getContentTypeAuditLogs(this.apiKey, flags['content-type']),
         this.client.getUsers(this.apiKey),
       ])
+
+      cli.action.stop()
 
       const output = buildOutput(audit.logs, users)
       this.printOutput(output, 'Audit Logs', flags['content-type'], stack.name)
