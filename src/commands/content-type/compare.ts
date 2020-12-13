@@ -1,5 +1,6 @@
 import Command from '../command'
 import {flags} from '@contentstack/cli-command'
+import cli from 'cli-ux'
 import buildOutput from '../../core/content-type/compare'
 
 export default class CompareCommand extends Command {
@@ -51,11 +52,15 @@ export default class CompareCommand extends Command {
       const {flags} = this.parse(CompareCommand)
       this.setup(flags)
 
+      cli.action.start(Command.RequestDataMessage)
+
       const [stack, previous, current] = await Promise.all([
         this.client.getStack(this.apiKey),
         this.client.getContentType(this.apiKey, flags['content-type'], true, flags.left),
         this.client.getContentType(this.apiKey, flags['content-type'], true, flags.right),
       ])
+
+      cli.action.stop()
 
       const output = await buildOutput(flags['content-type'], previous, current)
       this.printOutput(output, 'changes', flags['content-type'], stack.name)

@@ -1,5 +1,6 @@
 import Command from '../command'
 import {flags} from '@contentstack/cli-command'
+import cli from 'cli-ux'
 import buildOutput from '../../core/content-type/list'
 
 export default class ListCommand extends Command {
@@ -40,10 +41,14 @@ export default class ListCommand extends Command {
       const {flags} = this.parse(ListCommand)
       this.setup(flags)
 
+      cli.action.start(Command.RequestDataMessage)
+
       const [stack, contentTypes] = await Promise.all([
         this.client.getStack(this.apiKey),
         this.client.getContentTypes(this.apiKey, false),
       ])
+
+      cli.action.stop()
 
       const output = buildOutput(contentTypes, flags.order)
       this.printOutput(output, 'Content Types', null, stack.name)

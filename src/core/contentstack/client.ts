@@ -51,7 +51,7 @@ export default class ContentstackClient {
         },
         headers: {api_key},
       })
-  
+
       return response.data.stack.collaborators
     } catch (error) {
       throw this.buildError(error)
@@ -61,12 +61,12 @@ export default class ContentstackClient {
   async getContentTypeAuditLogs(api_key: string, uid: string): Promise<any> {
     try {
       const response = await this.instance.get('/audit-logs',
-      {
-        params: {
-          query: {$and: [{module: 'content_type'}, {'metadata.uid': uid}]},
-        },
-        headers: {api_key},
-      })
+        {
+          params: {
+            query: {$and: [{module: 'content_type'}, {'metadata.uid': uid}]},
+          },
+          headers: {api_key},
+        })
 
       return response.data
     } catch (error) {
@@ -118,7 +118,7 @@ export default class ContentstackClient {
           include_global_field_schema: includeGlobalFields,
         },
       })
-  
+
       return response.data
     } catch (error) {
       throw this.buildError(error)
