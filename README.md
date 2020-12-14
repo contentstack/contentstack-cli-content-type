@@ -1,5 +1,5 @@
-contentstack-cli-content-type
-===
+![Node.js CI](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/workflows/Node.js%20CI/badge.svg)
+![npm](https://img.shields.io/npm/v/contentstack-cli-content-type)
 
 ## Description
 This is a plugin for [Contentstack's](https://www.contentstack.com/) CLI.
@@ -12,16 +12,20 @@ $ csdx plugins:install contentstack-cli-content-type
 ```
 
 ## How to use this plugin
-This plugin requires you to be authenticated using `csdx auth:login`.
-Several commands, such as `csdx content-type:compare` support management token aliases a input flag.
-These commands only use the **Stack API Key**. 
-They are provided as a convenience, so the Stack API Key's do not have to be re-typed. 
-The management token associated with the Stack API Key is ignored.
+This plugin requires you to be authenticated using [csdx auth:login](https://www.contentstack.com/docs/developers/cli/authenticate-with-the-cli/).
 
-<!-- toc -->
-* [Commands](#commands)
-<!-- tocstop -->
+Several commands, such as `csdx content-type:compare` support token aliases as input.
+These token aliases should be created using `csdx auth:tokens:add`.
 
+The commands only use the **Stack API Key**. The management token is ignored.
+They are provided as a convenience, so the Stack API Keys do not have to be re-typed. 
+
+## Usability
+The `csdx content-type:details` command requires a wide terminal window. If the `path` column is not needed, you can hide it:
+
+```shell
+$ csdx content-type:details -a "management token" -c "content type" --no-path
+```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
@@ -42,7 +46,7 @@ USAGE
 OPTIONS
   -a, --token-alias=token-alias    management token alias
   -c, --content-type=content-type  (required) Content Type UID
-  -s, --stack=stack                stack uid
+  -s, --stack=stack                Stack UID
 
 EXAMPLES
   $ csdx content-type:audit -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"
@@ -64,7 +68,7 @@ OPTIONS
   -c, --content-type=content-type  (required) Content Type UID
   -l, --left=left                  Content Type version, i.e. prev version
   -r, --right=right                Content Type version, i.e. later version
-  -s, --stack=stack                stack uid
+  -s, --stack=stack                Stack UID
 
 EXAMPLES
   $ csdx content-type:compare -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"
@@ -76,7 +80,7 @@ _See code: [src/commands/content-type/compare.ts](https://github.com/Contentstac
 
 ## `csdx content-type:compare-remote`
 
-compare two Content Types on different stacks
+compare two Content Types on different Stacks
 
 ```
 USAGE
@@ -84,8 +88,8 @@ USAGE
 
 OPTIONS
   -c, --content-type=content-type  (required) Content Type UID
-  -o, --origin-stack=origin-stack  origin stack uid
-  -r, --remote-stack=remote-stack  remote stack uid
+  -o, --origin-stack=origin-stack  (required) origin Stack UID
+  -r, --remote-stack=remote-stack  (required) remote Stack UID
 
 EXAMPLE
   $ csdx content-type:compare-remote -o "xxxxxxxxxxxxxxxxxxx" -r "xxxxxxxxxxxxxxxxxxx" -c "home_page"
@@ -105,7 +109,7 @@ OPTIONS
   -a, --token-alias=token-alias    management token alias
   -c, --content-type=content-type  (required) Content Type UID
   -p, --[no-]path                  show path column
-  -s, --stack=stack                stack uid
+  -s, --stack=stack                Stack UID
 
 EXAMPLES
   $ csdx content-type:details -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"
@@ -126,7 +130,7 @@ USAGE
 OPTIONS
   -a, --token-alias=token-alias  management token alias
   -o, --order=title|modified     [default: title] order by column
-  -s, --stack=stack              stack uid
+  -s, --stack=stack              Stack UID
 
 EXAMPLES
   $ csdx content-type:list -s "xxxxxxxxxxxxxxxxxxx"

@@ -15,7 +15,7 @@ export default class DetailsCommand extends Command {
   static flags = {
     stack: flags.string({
       char: 's',
-      description: 'stack uid',
+      description: 'Stack UID',
       required: false,
       exclusive: ['token-alias'],
     }),

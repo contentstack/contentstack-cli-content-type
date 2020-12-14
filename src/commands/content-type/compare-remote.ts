@@ -4,7 +4,7 @@ import cli from 'cli-ux'
 import buildOutput from '../../core/content-type/compare'
 
 export default class CompareRemoteCommand extends Command {
-  static description = 'compare two Content Types on different stacks';
+  static description = 'compare two Content Types on different Stacks';
 
   static examples = [
     '$ csdx content-type:compare-remote -o "xxxxxxxxxxxxxxxxxxx" -r "xxxxxxxxxxxxxxxxxxx" -c "home_page"',
@@ -13,15 +13,15 @@ export default class CompareRemoteCommand extends Command {
   static flags = {
     'origin-stack': flags.string({
       char: 'o',
-      description: 'origin stack uid',
-      required: false,
+      description: 'origin Stack UID',
+      required: true,
       dependsOn: ['remote-stack'],
     }),
 
     'remote-stack': flags.string({
       char: 'r',
-      description: 'remote stack uid',
-      required: false,
+      description: 'remote Stack UID',
+      required: true,
       dependsOn: ['origin-stack'],
     }),
 
