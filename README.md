@@ -12,6 +12,11 @@ $ csdx plugins:install contentstack-cli-content-type
 ```
 
 ## How to use this plugin
+This plugin requires you to be authenticated using `csdx auth:login`.
+Several commands, such as `csdx content-type:compare` support management token aliases a input flag.
+These commands only use the **Stack API Key**. 
+They are provided as a convenience, so the Stack API Key's do not have to be re-typed. 
+The management token associated with the Stack API Key is ignored.
 
 <!-- toc -->
 * [Commands](#commands)
