@@ -37,14 +37,14 @@ export default class CompareRemoteCommand extends Command {
       const {flags} = this.parse(CompareRemoteCommand)
       this.setup({'token-alias': undefined, stack: flags['origin-stack']})
 
-      cli.action.start(Command.RequestDataMessage)
-
       const originStackApi = flags['origin-stack'] as string
       const remoteStackApi = flags['remote-stack'] as string
 
       if (originStackApi === remoteStackApi) {
         this.warn('Comparing the same Stack does not produce useful results.')
       }
+
+      cli.action.start(Command.RequestDataMessage)
 
       const [originStackResp, remoteStackResp, originContentTypeResp, remoteContentTypeResp] = await Promise.all([
         this.client.getStack(originStackApi),
