@@ -42,6 +42,10 @@ export default class CompareRemoteCommand extends Command {
       const originStackApi = flags['origin-stack'] as string
       const remoteStackApi = flags['remote-stack'] as string
 
+      if (originStackApi === remoteStackApi) {
+        this.warn('Comparing the same Stack does not produce useful results.')
+      }
+
       const [originStackResp, remoteStackResp, originContentTypeResp, remoteContentTypeResp] = await Promise.all([
         this.client.getStack(originStackApi),
         this.client.getStack(remoteStackApi),

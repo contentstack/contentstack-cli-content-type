@@ -5,6 +5,26 @@
 This is a plugin for [Contentstack's](https://www.contentstack.com/) CLI.
 It allows you to quickly retrieve information about Content Types in a Stack.
 
+## Why use this plugin
+1. The `csdx content-type:audit` command lists recent changes to a content type and by whom.
+This is useful when needing to find Content Type versions to compare with `csdx content-type:compare`.
+[Audit logs](https://www.contentstack.com/docs/developers/set-up-stack/monitor-stack-activities-in-audit-log/) are stored for 90 days within Contentstack. 
+
+1. The `csdx content-type:compare-remote` command allows you to compare the same Content Type between two Stacks.
+This is useful when you have cloned or duplicated a Stack, and want to check what has changed in a child Stack.
+
+1. The `csdx content-type:compare` command allows you to compare multiple versions of a Content Type within a single Stack.
+This is useful when you are working in a development team, and want to compare changes made by colleagues.
+
+1. The `csdx content-type:list` command is useful when you want to see all the Content Types within a Stack.
+The Content Types Display Name, UID, Last Modified Date, and Version number is shown. The list can be ordered by `title` or `modified` date.
+
+1. The `csdx content-type:details` command provides useful information, such as:
+ - Field UID and Data Types
+ - Referenced Content Types
+ -  Options such as required, multiple, and unique.
+ - The full path to a field, useful when using the [include reference endpoint](https://www.contentstack.com/docs/developers/apis/content-delivery-api/#include-reference) or filtering operations, such as the [equality endpoint](https://www.contentstack.com/docs/developers/apis/content-delivery-api/#equals-operator).
+
 ## How to install this plugin
 
 ```shell
