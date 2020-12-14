@@ -38,14 +38,14 @@ export default class CompareCommand extends Command {
       char: 'l',
       description: 'Content Type version, i.e. prev version',
       required: false,
-      dependsOn: ['right']
+      dependsOn: ['right'],
     }),
 
     right: flags.integer({
       char: 'r',
       description: 'Content Type version, i.e. later version',
       required: false,
-      dependsOn: ['left']
+      dependsOn: ['left'],
     }),
   }
 
@@ -55,13 +55,13 @@ export default class CompareCommand extends Command {
       this.setup(flags)
 
       cli.action.start(Command.RequestDataMessage)
-      
-      if (!flags.left) {
-        const discovery = await this.client.getContentType(this.apiKey, flags['content-type'], false);
-        const version = discovery.content_type._version;
 
-        flags.left = version;
-        flags.right = version > 1 ? version - 1 : version;
+      if (!flags.left) {
+        const discovery = await this.client.getContentType(this.apiKey, flags['content-type'], false)
+        const version = discovery.content_type._version
+
+        flags.left = version
+        flags.right = version > 1 ? version - 1 : version
 
         this.log(`Comparing versions: ${flags.left} <-> ${flags.right}.`)
       }
