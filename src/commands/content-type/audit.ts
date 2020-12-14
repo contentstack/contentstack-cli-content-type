@@ -4,7 +4,7 @@ import cli from 'cli-ux'
 import buildOutput from '../../core/content-type/audit'
 
 export default class AuditCommand extends Command {
-  static description = 'display Audit Logs for recent changes to a Content Type';
+  static description = 'display recent changes to a Content Type';
 
   static examples = [
     '$ csdx content-type:audit -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"',

@@ -22,12 +22,13 @@ $ csdx plugins:install contentstack-cli-content-type
 <!-- commands -->
 * [`csdx content-type:audit`](#csdx-content-typeaudit)
 * [`csdx content-type:compare`](#csdx-content-typecompare)
+* [`csdx content-type:compare-remote`](#csdx-content-typecompare-remote)
 * [`csdx content-type:details`](#csdx-content-typedetails)
 * [`csdx content-type:list`](#csdx-content-typelist)
 
 ## `csdx content-type:audit`
 
-display Audit Logs for recent changes to a Content Type
+display recent changes to a Content Type
 
 ```
 USAGE
@@ -67,6 +68,25 @@ EXAMPLES
 ```
 
 _See code: [src/commands/content-type/compare.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.0/src/commands/content-type/compare.ts)_
+
+## `csdx content-type:compare-remote`
+
+compare two Content Types on different stacks
+
+```
+USAGE
+  $ csdx content-type:compare-remote
+
+OPTIONS
+  -c, --content-type=content-type  (required) Content Type UID
+  -o, --origin-stack=origin-stack  origin stack uid
+  -r, --remote-stack=remote-stack  remote stack uid
+
+EXAMPLE
+  $ csdx content-type:compare-remote -o "xxxxxxxxxxxxxxxxxxx" -r "xxxxxxxxxxxxxxxxxxx" -c "home_page"
+```
+
+_See code: [src/commands/content-type/compare-remote.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.0/src/commands/content-type/compare-remote.ts)_
 
 ## `csdx content-type:details`
 
