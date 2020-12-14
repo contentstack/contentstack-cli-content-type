@@ -29,16 +29,16 @@ export default class CompareRemoteCommand extends Command {
       char: 'c',
       description: 'Content Type UID',
       required: true,
-    })
+    }),
   }
 
   async run() {
     try {
       const {flags} = this.parse(CompareRemoteCommand)
-      this.setup({ 'token-alias': undefined, 'stack': flags['origin-stack'] })
+      this.setup({'token-alias': undefined, stack: flags['origin-stack']})
 
       cli.action.start(Command.RequestDataMessage)
-      
+
       const originStackApi = flags['origin-stack'] as string
       const remoteStackApi = flags['remote-stack'] as string
 
