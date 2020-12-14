@@ -34,7 +34,7 @@ export default class ContentTypeCommand extends Command {
   }
 
   printOutput(output: BuildOutput, who: string, what: string | null, where: string) {
-    this.log(`Requested ${who}${what ? ` for ${what} ` : ' '}on '${where}.'`)
+    this.log(`Requested ${who}${what ? ` for '${what}' ` : ' '}on '${where}.'`)
     this.log('---\n')
 
     if (output.hasResults) {
