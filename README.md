@@ -17,13 +17,13 @@ This is useful when you have cloned or duplicated a Stack, and want to check wha
 This is useful when you are working in a development team, and want to compare changes made by colleagues.
 
 1. The `csdx content-type:list` command is useful when you want to see all the Content Types within a Stack.
-The Content Types Display Name, UID, Last Modified Date, and Version number is shown. The list can be ordered by `title` or `modified` date.
+The Content Type's Display Name, UID, Last Modified Date, and Version number is shown. The list can be ordered by `title` or `modified` date. When developing against Contentstack, Content Type UIDs are needed when requesting data.
 
 1. The `csdx content-type:details` command provides useful information, such as:
- - Field UID and Data Types
- - Referenced Content Types
- -  Options such as required, multiple, and unique.
- - The full path to a field, useful when using the [include reference endpoint](https://www.contentstack.com/docs/developers/apis/content-delivery-api/#include-reference) or filtering operations, such as the [equality endpoint](https://www.contentstack.com/docs/developers/apis/content-delivery-api/#equals-operator).
+  * Field UID and Data Types
+  * Referenced Content Types
+  * Options such as required, multiple, and unique
+  * The full path to a field, useful when using the [include reference endpoint](https://www.contentstack.com/docs/developers/apis/content-delivery-api/#include-reference) or filtering operations, such as the [equality endpoint](https://www.contentstack.com/docs/developers/apis/content-delivery-api/#equals-operator).
 
 ## How to install this plugin
 
