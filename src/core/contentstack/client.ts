@@ -39,7 +39,7 @@ export default class ContentstackClient {
         uid: stack.uid,
       } as Stack
     } catch (error) {
-      throw this.buildError(error)
+      throw this.buildError(error, {api_key})
     }
   }
 
@@ -54,7 +54,7 @@ export default class ContentstackClient {
 
       return response.data.stack.collaborators
     } catch (error) {
-      throw this.buildError(error)
+      throw this.buildError(error, {api_key})
     }
   }
 
@@ -70,7 +70,7 @@ export default class ContentstackClient {
 
       return response.data
     } catch (error) {
-      throw this.buildError(error)
+      throw this.buildError(error, {api_key})
     }
   }
 
@@ -87,7 +87,7 @@ export default class ContentstackClient {
 
       return response.data
     } catch (error) {
-      throw this.buildError(error)
+      throw this.buildError(error, {api_key})
     }
   }
 
@@ -105,7 +105,7 @@ export default class ContentstackClient {
 
       return response.data
     } catch (error) {
-      throw this.buildError(error)
+      throw this.buildError(error, {api_key})
     }
   }
 
@@ -121,13 +121,21 @@ export default class ContentstackClient {
 
       return response.data
     } catch (error) {
-      throw this.buildError(error)
+      throw this.buildError(error, {api_key})
     }
   }
 
-  private buildError(error: any) {
+  private buildError(error: any, context: any = {}) {
     const data = error?.response?.data
-    if (!data) return new Error('Unrecognized error. Please try again.')
-    return new ContentstackError(data.error_message, data.error_code)
+    if (!data || !data.errors) return new Error('Unrecognized error. Please try again.')
+
+    let message = data.error_message
+    const code = data.error_code
+
+    if (data.errors.api_key && context.api_key) {
+      message += ` This is in regards to the Stack API Key '${context.api_key}'.`
+    }
+
+    return new ContentstackError(message, code)
   }
 }
