@@ -14,7 +14,7 @@ export default async function buildOutput(contentTypeName: string, previous: any
     matching: 'lines',
   })
 
-  await tmp.file({prefix: `${contentTypeName}-compare`, postfix: '.html', keep: true}, async function (err: any, path: any, _fd: any, _cleanupCallback: any) {
+  tmp.file({prefix: `${contentTypeName}-compare`, postfix: '.html', keep: true}, async function (err: any, path: any, _fd: any, _cleanupCallback: any) {
     if (err) throw err
     fs.writeFileSync(path, html(diffHtml))
     await cli.open(path)
@@ -24,6 +24,7 @@ export default async function buildOutput(contentTypeName: string, previous: any
     header: null,
     body: 'Please check the browser output.',
     footer: null,
+    rows: [],
     hasResults: true,
   }
 }
