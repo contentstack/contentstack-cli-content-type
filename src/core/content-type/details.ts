@@ -16,8 +16,9 @@ export default function buildOutput(contentType: any, references: any, options: 
 
   return {
     header: header,
-    body: body.body,
+    body: body.table,
     footer: null,
+    rows: body.rows,
     hasResults: body.hasRows,
   }
 }
@@ -38,7 +39,8 @@ function buildBody(schema: any) {
 
   return {
     hasRows: rows.length > 1,
-    body: table(rows),
+    rows: rows,
+    table: table(rows),
   }
 }
 

@@ -22,6 +22,7 @@ export default function buildOutput(logs: any, users: any): BuildOutput {
     header: null,
     body: table(rows),
     footer: null,
+    rows: rows,
     hasResults: rows.length > 1,
   }
 }

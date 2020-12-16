@@ -25,6 +25,7 @@ export default function buildOutput(contentTypes: any, order: string): BuildOutp
     header: null,
     body: table(rows),
     footer: `Count: ${contentTypes.count}`,
+    rows: rows,
     hasResults: rows.length > 1,
   }
 }
