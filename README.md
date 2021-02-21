@@ -20,10 +20,15 @@ This is useful when you are working in a development team, and want to compare c
 The Content Type's Display Name, UID, Last Modified Date, and Version number is shown. The list can be ordered by `title` or `modified` date. When developing against Contentstack, Content Type UIDs are needed when requesting data.
 
 1. The `csdx content-type:details` command provides useful information, such as:
-  * Field UID and Data Types
-  * Referenced Content Types
-  * Options such as required, multiple, and unique
-  * The full path to a field, useful when using the [include reference endpoint](https://www.contentstack.com/docs/developers/apis/content-delivery-api/#include-reference) or filtering operations, such as the [equality endpoint](https://www.contentstack.com/docs/developers/apis/content-delivery-api/#equals-operator).
+    * Field UID and Data Types
+    * Referenced Content Types
+    * Options such as required, multiple, and unique
+    * The full path to a field, useful when using the [include reference endpoint](https://www.contentstack.com/docs/developers/apis/content-delivery-api/#include-reference) or filtering operations, such as the [equality endpoint](https://www.contentstack.com/docs/developers/apis/content-delivery-api/#equals-operator).
+
+1. The `csdx content-type:diagram` command creates a visual representation of a Stack's content model.
+    * The ouput format can be either `svg` or `dot`. 
+    * The diagram's orientation can be changed, using the `-d landscape|portrait` flag.
+    * The layout engine is [GraphViz](https://graphviz.org/). You can export the generated DOT Language, using the `-t dot` flag.
 
 ## How to install this plugin
 
@@ -53,6 +58,7 @@ $ csdx content-type:details -a "management token" -c "content type" --no-path
 * [`csdx content-type:compare`](#csdx-content-typecompare)
 * [`csdx content-type:compare-remote`](#csdx-content-typecompare-remote)
 * [`csdx content-type:details`](#csdx-content-typedetails)
+* [`csdx content-type:diagram`](#csdx-content-typediagram)
 * [`csdx content-type:list`](#csdx-content-typelist)
 
 ## `csdx content-type:audit`
@@ -138,6 +144,30 @@ EXAMPLES
 ```
 
 _See code: [src/commands/content-type/details.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.4/src/commands/content-type/details.ts)_
+
+## `csdx content-type:diagram`
+
+create a visual diagram of a Stack's Content Types
+
+```
+USAGE
+  $ csdx content-type:diagram
+
+OPTIONS
+  -a, --token-alias=token-alias       management token alias
+  -d, --direction=portrait|landscape  (required) [default: portrait] graph orientation
+  -o, --output=output                 (required) full path to output
+  -s, --stack=stack                   Stack UID
+  -t, --type=svg|dot                  (required) [default: svg] graph output file type
+
+EXAMPLES
+  $ csdx content-type:diagram -s "xxxxxxxxxxxxxxxxxxx" -o "./content-model.svg"
+  $ csdx content-type:diagram -a "management token" -o "./content-model.svg"
+  $ csdx content-type:diagram -a "management token" -o "./content-model.svg" -d "landscape"
+  $ csdx content-type:diagram -a "management token" -o "./content-model.dot" -t "dot"
+```
+
+_See code: [src/commands/content-type/diagram.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.4/src/commands/content-type/diagram.ts)_
 
 ## `csdx content-type:list`
 
