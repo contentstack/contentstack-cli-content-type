@@ -27,7 +27,7 @@ export default class DiagramCommand extends Command {
       description: 'management token alias',
       required: false,
     }),
-  
+
     output: flags.string({
       char: 'o',
       description: 'full path to output',
@@ -78,7 +78,6 @@ export default class DiagramCommand extends Command {
 
       cli.action.stop()
 
-
       const diagramOptions: CreateDiagramOptions = {
         stackName: stack.name,
         contentTypes: contentTypes.content_types,
@@ -86,13 +85,12 @@ export default class DiagramCommand extends Command {
         outputFileName: outputPath,
         outputFileType: flags.type,
         style: {
-          orientation: flags.direction === 'portrait' ? 'LR' : 'TD'
-        }
+          orientation: flags.direction === 'portrait' ? 'LR' : 'TD',
+        },
       }
 
       const output = await createDiagram(diagramOptions)
       this.log(`Created Graph: ${output.outputPath}`)
-
     } catch (error) {
       this.error(error, {exit: 1, suggestions: error.suggestions})
     }

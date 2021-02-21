@@ -57,7 +57,7 @@ export async function createDiagram(options: CreateDiagramOptions): Promise<Crea
   fs.writeFileSync(outputPath, dotOutput)
 
   return {
-    outputPath
+    outputPath,
   }
 }
 
