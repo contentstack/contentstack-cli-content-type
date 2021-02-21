@@ -17,6 +17,7 @@
     "diff2html": "^3.1.17",
     "git-diff": "^2.0.6",
     "moment": "^2.29.1",
+    "node-graphviz": "^0.1.0",
     "table": "^6.0.4",
     "tmp": "^0.2.1",
     "tslib": "^1.13.0",
