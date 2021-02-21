@@ -125,6 +125,20 @@ export default class ContentstackClient {
     }
   }
 
+  async getGlobalFields(api_key: string): Promise<any> {
+    try {
+      const response = await this.instance.get('/global_fields', {
+        params: {
+          api_key: api_key,
+        },
+      })
+
+      return response.data
+    } catch (error) {
+      throw this.buildError(error, {api_key})
+    }
+  }
+
   private buildError(error: any, context: any = {}) {
     const data = error?.response?.data
     if (!data || !data.errors) return new Error('Unrecognized error. Please try again.')
