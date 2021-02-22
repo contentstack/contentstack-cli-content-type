@@ -64,19 +64,19 @@ export async function createDiagram(options: CreateDiagramOptions): Promise<Crea
 const theme = {
   graph: {
     fontname: 'Helvetica',
-    fontsize: '120',
+    fontsize: '100',
     fontcolor: '#2a0f57',
   },
 
   node: {
     fontname: 'Helvetica',
-    fontsize: '12',
+    fontsize: '16',
     fontcolor: '#555555',
   },
 
   edge: {
     fontname: 'Helvetica',
-    fontsize: '11',
+    fontsize: '14',
     color: '#2a0f57',
   },
 
