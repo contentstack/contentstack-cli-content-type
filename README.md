@@ -28,7 +28,8 @@ The Content Type's Display Name, UID, Last Modified Date, and Version number is 
 1. The `csdx content-type:diagram` command creates a visual representation of a Stack's content model.
     * The ouput format can be either `svg` or `dot`. 
     * The diagram's orientation can be changed, using the `-d landscape|portrait` flag.
-    * The layout engine is [GraphViz](https://graphviz.org/). You can export the generated DOT Language, using the `-t dot` flag.
+    * [GraphViz](https://graphviz.org/) is the layout engine. You can export the generated DOT Language source, using the `-t dot` flag.
+    * ![Diagram Output](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/main/screenshots/starter-app.svg)
 
 ## How to install this plugin
 
