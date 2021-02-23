@@ -1,16 +1,16 @@
 import Command from '../../core/command'
 import {flags} from '@contentstack/cli-command'
 import cli from 'cli-ux'
-import {createDiagram, CreateDiagramOptions} from '../../core/content-type/diagram'
+import {createDiagram, CreateDiagramOptions, DiagramOrientation} from '../../core/content-type/diagram'
 
 export default class DiagramCommand extends Command {
   static description = 'create a visual diagram of a Stack\'s Content Types';
 
   static examples = [
-    '$ csdx content-type:diagram -s "xxxxxxxxxxxxxxxxxxx" -o "./content-model.svg"',
-    '$ csdx content-type:diagram -a "management token" -o "./content-model.svg"',
-    '$ csdx content-type:diagram -a "management token" -o "./content-model.svg" -d "landscape"',
-    '$ csdx content-type:diagram -a "management token" -o "./content-model.dot" -t "dot"',
+    '$ csdx content-type:diagram -s "xxxxxxxxxxxxxxxxxxx" -o "content-model.svg"',
+    '$ csdx content-type:diagram -a "management token" -o "content-model.svg"',
+    '$ csdx content-type:diagram -a "management token" -o "content-model.svg" -d "landscape"',
+    '$ csdx content-type:diagram -a "management token" -o "content-model.dot" -t "dot"',
   ];
 
   static flags = {
@@ -85,7 +85,7 @@ export default class DiagramCommand extends Command {
         outputFileName: outputPath,
         outputFileType: flags.type,
         style: {
-          orientation: flags.direction === 'portrait' ? 'LR' : 'TD',
+          orientation: flags.direction === 'portrait' ? DiagramOrientation.Portrait : DiagramOrientation.Landscape
         },
       }
 

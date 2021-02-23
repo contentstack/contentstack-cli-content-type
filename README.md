@@ -162,10 +162,10 @@ OPTIONS
   -t, --type=svg|dot                  (required) [default: svg] graph output file type
 
 EXAMPLES
-  $ csdx content-type:diagram -s "xxxxxxxxxxxxxxxxxxx" -o "./content-model.svg"
-  $ csdx content-type:diagram -a "management token" -o "./content-model.svg"
-  $ csdx content-type:diagram -a "management token" -o "./content-model.svg" -d "landscape"
-  $ csdx content-type:diagram -a "management token" -o "./content-model.dot" -t "dot"
+  $ csdx content-type:diagram -s "xxxxxxxxxxxxxxxxxxx" -o "content-model.svg"
+  $ csdx content-type:diagram -a "management token" -o "content-model.svg"
+  $ csdx content-type:diagram -a "management token" -o "content-model.svg" -d "landscape"
+  $ csdx content-type:diagram -a "management token" -o "content-model.dot" -t "dot"
 ```
 
 _See code: [src/commands/content-type/diagram.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.6/src/commands/content-type/diagram.ts)_

@@ -3,64 +3,6 @@ import * as fs from 'fs'
 import moment from 'moment'
 const {graphviz} = require('node-graphviz')
 
-enum DiagramNodeType {
-    ContentType,
-    GlobalFields
-}
-
-interface DiagramNode {
-    uid: string;
-    title: string;
-    fields: any[];
-}
-
-interface DiagramNodeField {
-    uid: string;
-    title: string;
-    path: string | null;
-    type: string | null;
-    fields: DiagramNodeField[];
-    references: string[];
-    multiple: boolean;
-    mandatory: boolean;
-    unique: boolean;
-}
-
-export interface CreateDiagramOptions {
-  stackName: string;
-  contentTypes: any[];
-  globalFields: any[];
-  outputFileName: string;
-  outputFileType: string;
-  style: DiagramStyleOptions;
-}
-
-export interface CreateDiagramResults {
-  outputPath: string;
-}
-
-export interface DiagramStyleOptions {
-  orientation: 'LR' | 'TD';
-}
-
-export async function createDiagram(options: CreateDiagramOptions): Promise<CreateDiagramResults> {
-  const contentTypeNodes = createNodes(options.contentTypes)
-  const globalFieldNodes = createNodes(options.globalFields)
-  const now = moment().format('MMMM Do YYYY, h:mm:ss a')
-  const graphLabel = `${options.stackName} | ${now}\n\n`
-
-  const dotSource = createDotSource(graphLabel, contentTypeNodes, globalFieldNodes, options.style)
-
-  const dotOutput = await graphviz.dot(dotSource, options.outputFileType)
-  const outputPath = createOutputPath(options.outputFileName)
-
-  fs.writeFileSync(outputPath, dotOutput)
-
-  return {
-    outputPath,
-  }
-}
-
 const theme = {
   graph: {
     fontname: 'Helvetica',
@@ -97,6 +39,69 @@ const theme = {
     hasOption: '&#x2713;',
     spacer: '&mdash;',
   },
+}
+
+enum DiagramNodeType {
+    ContentType,
+    GlobalFields
+}
+
+interface DiagramNode {
+    uid: string;
+    title: string;
+    fields: DiagramNodeField[];
+}
+
+interface DiagramNodeField {
+    uid: string;
+    title: string;
+    path: string | null;
+    type: string | null;
+    fields: DiagramNodeField[];
+    references: string[];
+    multiple: boolean;
+    mandatory: boolean;
+    unique: boolean;
+}
+
+export interface CreateDiagramOptions {
+  stackName: string;
+  contentTypes: any[];
+  globalFields: any[];
+  outputFileName: string;
+  outputFileType: string;
+  style: DiagramStyleOptions;
+}
+
+export interface CreateDiagramResults {
+  outputPath: string;
+}
+
+export enum DiagramOrientation {
+  Portrait = 'LR',
+  Landscape = 'TD'
+}
+
+export interface DiagramStyleOptions {
+  orientation: DiagramOrientation
+}
+
+export async function createDiagram(options: CreateDiagramOptions): Promise<CreateDiagramResults> {
+  const contentTypeNodes = createNodes(options.contentTypes)
+  const globalFieldNodes = createNodes(options.globalFields)
+  const now = moment().format('MMMM Do YYYY, h:mm:ss a')
+  const graphLabel = `${options.stackName} | ${now}\n\n`
+
+  const dotSource = createDotSource(graphLabel, contentTypeNodes, globalFieldNodes, options.style)
+
+  const dotOutput = await graphviz.dot(dotSource, options.outputFileType)
+  const outputPath = createOutputPath(options.outputFileName)
+
+  fs.writeFileSync(outputPath, dotOutput)
+
+  return {
+    outputPath,
+  }
 }
 
 function createNodes(contentTypes: any[]) {
@@ -256,13 +261,13 @@ function createDotTableRows(node: DiagramNode) {
 
   return fields.map((field: any, _: any) => {
     return `<tr>
-                    <td bgcolor="${theme.table.row.bgcolor}" align="left" port="${field.path}">${field.title}</td>
-                    <td bgcolor="${theme.table.row.bgcolor}" align="left">${field.type === null ? 'block' : field.type}</td>
-                    <td bgcolor="${theme.table.row.bgcolor}" align="left">${field.references.join(', ')}</td>
-                    <td bgcolor="${theme.table.row.bgcolor}" align="center">${field.multiple ? theme.entities.hasOption : ''}</td>
-                    <td bgcolor="${theme.table.row.bgcolor}" align="center">${field.mandatory ? theme.entities.hasOption : ''}</td>
-                    <td bgcolor="${theme.table.row.bgcolor}" align="center">${field.unique ? theme.entities.hasOption : ''}</td>
-                </tr>`
+              <td bgcolor="${theme.table.row.bgcolor}" align="left" port="${field.path}">${field.title}</td>
+              <td bgcolor="${theme.table.row.bgcolor}" align="left">${field.type === null ? 'block' : field.type}</td>
+              <td bgcolor="${theme.table.row.bgcolor}" align="left">${field.references.join(', ')}</td>
+              <td bgcolor="${theme.table.row.bgcolor}" align="center">${field.multiple ? theme.entities.hasOption : ''}</td>
+              <td bgcolor="${theme.table.row.bgcolor}" align="center">${field.mandatory ? theme.entities.hasOption : ''}</td>
+              <td bgcolor="${theme.table.row.bgcolor}" align="center">${field.unique ? theme.entities.hasOption : ''}</td>
+            </tr>`
   }).join('\n')
 }
 
