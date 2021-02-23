@@ -83,7 +83,7 @@ export enum DiagramOrientation {
 }
 
 export interface DiagramStyleOptions {
-  orientation: DiagramOrientation
+  orientation: DiagramOrientation;
 }
 
 export async function createDiagram(options: CreateDiagramOptions): Promise<CreateDiagramResults> {

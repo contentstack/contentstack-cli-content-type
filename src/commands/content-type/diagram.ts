@@ -85,7 +85,7 @@ export default class DiagramCommand extends Command {
         outputFileName: outputPath,
         outputFileType: flags.type,
         style: {
-          orientation: flags.direction === 'portrait' ? DiagramOrientation.Portrait : DiagramOrientation.Landscape
+          orientation: flags.direction === 'portrait' ? DiagramOrientation.Portrait : DiagramOrientation.Landscape,
         },
       }
 
