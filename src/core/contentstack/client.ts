@@ -113,9 +113,11 @@ export default class ContentstackClient {
     try {
       const response = await this.instance.get('/content_types', {
         params: {
-          api_key: api_key,
           include_count: true,
           include_global_field_schema: includeGlobalFields,
+        },
+        headers: {
+          api_key,
         },
       })
 
