@@ -1,6 +1,6 @@
 fileignoreconfig:
 - filename: package-lock.json
-  checksum: e78fc9c4b8032c8a0fd0c0fef9b0b85808aa51e0c3a9c291f8c6227e116705a6
+  checksum: 55dabe3d4e432bf1e32014756e5787b90b25446a018cc7ad08824bcc9072fb01
 - filename: src/typings/@contentstack/cli-command.d.ts
   checksum: 8a91f44817d08d0289f754ff02bd53b106bf89b3a8082bdfe1500a3297f25805
 version: "1.0"
