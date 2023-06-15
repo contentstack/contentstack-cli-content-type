@@ -3,9 +3,9 @@ import * as fs from 'fs'
 import * as tmp from 'tmp'
 import * as Diff2html from 'diff2html'
 import gitDiff from 'git-diff'
-import {BuildOutput} from './build-output'
+import {BuildOutput} from '../../types'
 
-export default async function buildOutput(contentTypeName: string, previous: any, current: any): Promise<BuildOutput> {
+export default async function buildOutput(contentTypeName: string, previous: any, current: any): Promise<BuildOutput> {  
   const diffString = buildDiffString(previous, current)
   const diffTree = Diff2html.parse(diffString)
   const diffHtml = Diff2html.html(diffTree, {
@@ -31,8 +31,8 @@ export default async function buildOutput(contentTypeName: string, previous: any
 
 function buildDiffString(previous: any, current: any) {
   return (
-    `--- ${previous.content_type.uid}\t${current.content_type.updated_at}\n` +
-        `+++ ${current.content_type.uid}\t${current.content_type.updated_at}\n` +
+    `--- ${previous.uid}\t${current.updated_at}\n` +
+        `+++ ${current.uid}\t${current.updated_at}\n` +
         gitDiff(JSON.stringify(previous, null, 2), JSON.stringify(current, null, 2))
   )
 }

@@ -64,19 +64,23 @@ $ csdx content-type:details -a "management token" -c "content type" --no-path
 
 ## `csdx content-type:audit`
 
-display recent changes to a Content Type
+Display recent changes to a Content Type
 
 ```
 USAGE
-  $ csdx content-type:audit
+  $ csdx content-type:audit -c <value> [-k <value> | -a <value>]
 
-OPTIONS
-  -a, --token-alias=token-alias    management token alias
-  -c, --content-type=content-type  (required) Content Type UID
-  -s, --stack=stack                Stack UID
+FLAGS
+  -a, --token-alias=<value>   Management token alias
+  -c, --content-type=<value>  (required) Content Type UID
+  -k, --stack=<value>         Stack API Key
+
+DESCRIPTION
+  Display recent changes to a Content Type
 
 EXAMPLES
-  $ csdx content-type:audit -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"
+  $ csdx content-type:audit -k "xxxxxxxxxxxxxxxxxxx" -c "home_page"
+
   $ csdx content-type:audit -a "management token" -c "home_page"
 ```
 
@@ -84,22 +88,27 @@ _See code: [src/commands/content-type/audit.ts](https://github.com/Contentstack-
 
 ## `csdx content-type:compare`
 
-compare two Content Type versions
+Compare two Content Type versions
 
 ```
 USAGE
-  $ csdx content-type:compare
+  $ csdx content-type:compare -c <value> [-k <value> | -a <value>] [-l <value> -r <value>]
 
-OPTIONS
-  -a, --token-alias=token-alias    management token alias
-  -c, --content-type=content-type  (required) Content Type UID
-  -l, --left=left                  Content Type version, i.e. prev version
-  -r, --right=right                Content Type version, i.e. later version
-  -s, --stack=stack                Stack UID
+FLAGS
+  -a, --token-alias=<value>   Management token alias
+  -c, --content-type=<value>  (required) Content Type UID
+  -k, --stack=<value>         Stack API Key
+  -l, --left=<value>          Content Type version, i.e. prev version
+  -r, --right=<value>         Content Type version, i.e. later version
+
+DESCRIPTION
+  Compare two Content Type versions
 
 EXAMPLES
-  $ csdx content-type:compare -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"
-  $ csdx content-type:compare -s "xxxxxxxxxxxxxxxxxxx" -c "home_page" -l # -r #
+  $ csdx content-type:compare -k "xxxxxxxxxxxxxxxxxxx" -c "home_page"
+
+  $ csdx content-type:compare -k "xxxxxxxxxxxxxxxxxxx" -c "home_page" -l # -r #
+
   $ csdx content-type:compare -a "management token" -c "home_page" -l # -r #
 ```
 
@@ -111,14 +120,17 @@ compare two Content Types on different Stacks
 
 ```
 USAGE
-  $ csdx content-type:compare-remote
+  $ csdx content-type:compare-remote (-o <value> -r <value>) -c <value>
 
-OPTIONS
-  -c, --content-type=content-type  (required) Content Type UID
-  -o, --origin-stack=origin-stack  (required) origin Stack UID
-  -r, --remote-stack=remote-stack  (required) remote Stack UID
+FLAGS
+  -c, --content-type=<value>  (required) Content Type UID
+  -o, --origin-stack=<value>  (required) Origin Stack API Key
+  -r, --remote-stack=<value>  (required) Remote Stack API Key
 
-EXAMPLE
+DESCRIPTION
+  compare two Content Types on different Stacks
+
+EXAMPLES
   $ csdx content-type:compare-remote -o "xxxxxxxxxxxxxxxxxxx" -r "xxxxxxxxxxxxxxxxxxx" -c "home_page"
 ```
 
@@ -126,21 +138,26 @@ _See code: [src/commands/content-type/compare-remote.ts](https://github.com/Cont
 
 ## `csdx content-type:details`
 
-display Content Type details
+Display Content Type details
 
 ```
 USAGE
-  $ csdx content-type:details
+  $ csdx content-type:details -c <value> [-k <value> | -a <value>] [-p]
 
-OPTIONS
-  -a, --token-alias=token-alias    management token alias
-  -c, --content-type=content-type  (required) Content Type UID
-  -p, --[no-]path                  show path column
-  -s, --stack=stack                Stack UID
+FLAGS
+  -a, --token-alias=<value>   Management token alias
+  -c, --content-type=<value>  (required) Content Type UID
+  -k, --stack=<value>         Stack API Key
+  -p, --[no-]path             show path column
+
+DESCRIPTION
+  Display Content Type details
 
 EXAMPLES
-  $ csdx content-type:details -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"
+  $ csdx content-type:details -k "xxxxxxxxxxxxxxxxxxx" -c "home_page"
+
   $ csdx content-type:details -a "management token" -c "home_page"
+
   $ csdx content-type:details -a "management token" -c "home_page" --no-path
 ```
 
@@ -148,23 +165,31 @@ _See code: [src/commands/content-type/details.ts](https://github.com/Contentstac
 
 ## `csdx content-type:diagram`
 
-create a visual diagram of a Stack's Content Types
+Create a visual diagram of a Stack's Content Types
 
 ```
 USAGE
-  $ csdx content-type:diagram
+  $ csdx content-type:diagram -o <value> -d portrait|landscape -t svg|dot [-k <value> | -a <value>]
 
-OPTIONS
-  -a, --token-alias=token-alias       management token alias
-  -d, --direction=portrait|landscape  (required) [default: portrait] graph orientation
-  -o, --output=output                 (required) full path to output
-  -s, --stack=stack                   Stack UID
-  -t, --type=svg|dot                  (required) [default: svg] graph output file type
+FLAGS
+  -a, --token-alias=<value>  Management token alias
+  -d, --direction=<option>   (required) [default: portrait] graph orientation
+                             <options: portrait|landscape>
+  -k, --stack=<value>        Stack API Key
+  -o, --output=<value>       (required) full path to output
+  -t, --type=<option>        (required) [default: svg] graph output file type
+                             <options: svg|dot>
+
+DESCRIPTION
+  Create a visual diagram of a Stack's Content Types
 
 EXAMPLES
-  $ csdx content-type:diagram -s "xxxxxxxxxxxxxxxxxxx" -o "content-model.svg"
+  $ csdx content-type:diagram -k "xxxxxxxxxxxxxxxxxxx" -o "content-model.svg"
+
   $ csdx content-type:diagram -a "management token" -o "content-model.svg"
+
   $ csdx content-type:diagram -a "management token" -o "content-model.svg" -d "landscape"
+
   $ csdx content-type:diagram -a "management token" -o "content-model.dot" -t "dot"
 ```
 
@@ -172,20 +197,26 @@ _See code: [src/commands/content-type/diagram.ts](https://github.com/Contentstac
 
 ## `csdx content-type:list`
 
-list all Content Types in a Stack
+List all Content Types in a Stack
 
 ```
 USAGE
-  $ csdx content-type:list
+  $ csdx content-type:list [-k <value> | -a <value>] [-o title|modified]
 
-OPTIONS
-  -a, --token-alias=token-alias  management token alias
-  -o, --order=title|modified     [default: title] order by column
-  -s, --stack=stack              Stack UID
+FLAGS
+  -a, --token-alias=<value>  Management token alias
+  -k, --stack=<value>        Stack API Key
+  -o, --order=<option>       [default: title] order by column
+                             <options: title|modified>
+
+DESCRIPTION
+  List all Content Types in a Stack
 
 EXAMPLES
   $ csdx content-type:list -s "xxxxxxxxxxxxxxxxxxx"
+
   $ csdx content-type:list -a "management token"
+
   $ csdx content-type:list -a "management token" -o modified
 ```
 
