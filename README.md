@@ -68,12 +68,14 @@ Display recent changes to a Content Type
 
 ```
 USAGE
-  $ csdx content-type:audit -c <value> [-k <value> | -a <value>]
+  $ csdx content-type:audit -c <value> [-s <value> | -a <value> | -a <value>] [-k <value> |  | ]
 
 FLAGS
-  -a, --token-alias=<value>   Management token alias
-  -c, --content-type=<value>  (required) Content Type UID
-  -k, --stack=<value>         Stack API Key
+  -a, --alias=<value>          Alias of the management token
+  -a, --token-alias=<value>    Management token alias
+  -c, --content-type=<value>   (required) Content Type UID
+  -k, --stack-api-key=<value>  Stack API Key
+  -s, --stack=<value>          Stack UID
 
 DESCRIPTION
   Display recent changes to a Content Type
@@ -92,14 +94,16 @@ Compare two Content Type versions
 
 ```
 USAGE
-  $ csdx content-type:compare -c <value> [-k <value> | -a <value>] [-l <value> -r <value>]
+  $ csdx content-type:compare -c <value> [-s <value> | -a <value>] [-k <value> | ] [-a <value>] [-l <value> -r <value>]
 
 FLAGS
-  -a, --token-alias=<value>   Management token alias
-  -c, --content-type=<value>  (required) Content Type UID
-  -k, --stack=<value>         Stack API Key
-  -l, --left=<value>          Content Type version, i.e. prev version
-  -r, --right=<value>         Content Type version, i.e. later version
+  -a, --alias=<value>          Alias of the management token
+  -a, --token-alias=<value>    Management token alias
+  -c, --content-type=<value>   (required) Content Type UID
+  -k, --stack-api-key=<value>  Stack API Key
+  -l, --left=<value>           Content Type version, i.e. prev version
+  -r, --right=<value>          Content Type version, i.e. later version
+  -s, --stack=<value>          Stack UID
 
 DESCRIPTION
   Compare two Content Type versions
@@ -142,13 +146,15 @@ Display Content Type details
 
 ```
 USAGE
-  $ csdx content-type:details -c <value> [-k <value> | -a <value>] [-p]
+  $ csdx content-type:details -c <value> [-s <value> | -a <value>] [-k <value> | ] [-a <value>] [-p]
 
 FLAGS
-  -a, --token-alias=<value>   Management token alias
-  -c, --content-type=<value>  (required) Content Type UID
-  -k, --stack=<value>         Stack API Key
-  -p, --[no-]path             show path column
+  -a, --alias=<value>          Alias of the management token
+  -a, --token-alias=<value>    Management token alias
+  -c, --content-type=<value>   (required) Content Type UID
+  -k, --stack-api-key=<value>  Stack API Key
+  -p, --[no-]path              show path column
+  -s, --stack=<value>          Stack UID
 
 DESCRIPTION
   Display Content Type details
@@ -169,16 +175,19 @@ Create a visual diagram of a Stack's Content Types
 
 ```
 USAGE
-  $ csdx content-type:diagram -o <value> -d portrait|landscape -t svg|dot [-k <value> | -a <value>]
+  $ csdx content-type:diagram -o <value> -d portrait|landscape -t svg|dot [-s <value> | -a <value> | -a <value>] [-k
+    <value> |  | ]
 
 FLAGS
-  -a, --token-alias=<value>  Management token alias
-  -d, --direction=<option>   (required) [default: portrait] graph orientation
-                             <options: portrait|landscape>
-  -k, --stack=<value>        Stack API Key
-  -o, --output=<value>       (required) full path to output
-  -t, --type=<option>        (required) [default: svg] graph output file type
-                             <options: svg|dot>
+  -a, --alias=<value>          Alias of the management token
+  -a, --token-alias=<value>    Management token alias
+  -d, --direction=<option>     (required) [default: portrait] graph orientation
+                               <options: portrait|landscape>
+  -k, --stack-api-key=<value>  Stack API Key
+  -o, --output=<value>         (required) full path to output
+  -s, --stack=<value>          Stack UID
+  -t, --type=<option>          (required) [default: svg] graph output file type
+                               <options: svg|dot>
 
 DESCRIPTION
   Create a visual diagram of a Stack's Content Types
@@ -201,13 +210,15 @@ List all Content Types in a Stack
 
 ```
 USAGE
-  $ csdx content-type:list [-k <value> | -a <value>] [-o title|modified]
+  $ csdx content-type:list [-s <value> | -a <value> | -a <value>] [-k <value> |  | ] [-o title|modified]
 
 FLAGS
-  -a, --token-alias=<value>  Management token alias
-  -k, --stack=<value>        Stack API Key
-  -o, --order=<option>       [default: title] order by column
-                             <options: title|modified>
+  -a, --alias=<value>          Alias of the management token
+  -a, --token-alias=<value>    Management token alias
+  -k, --stack-api-key=<value>  Stack API Key
+  -o, --order=<option>         [default: title] order by column
+                               <options: title|modified>
+  -s, --stack=<value>          Stack UID
 
 DESCRIPTION
   List all Content Types in a Stack
