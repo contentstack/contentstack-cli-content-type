@@ -1,10 +1,16 @@
-import Command from '../../core/command'
-import {flags} from '@contentstack/cli-command'
-import cli from 'cli-ux'
-import buildOutput from '../../core/content-type/list'
+import Command from "../../core/command";
+import {
+  flags,
+  FlagInput,
+  managementSDKClient,
+  cliux,
+  printFlagDeprecation
+} from "@contentstack/cli-utilities";
+import buildOutput from "../../core/content-type/list";
+import { getStack, getContentTypes } from "../../utils/index";
 
 export default class ListCommand extends Command {
-  static description = 'list all Content Types in a Stack';
+  static description = "List all Content Types in a Stack";
 
   static examples = [
     '$ csdx content-type:list -s "xxxxxxxxxxxxxxxxxxx"',
@@ -12,48 +18,61 @@ export default class ListCommand extends Command {
     '$ csdx content-type:list -a "management token" -o modified',
   ];
 
-  static flags = {
+  static flags: FlagInput = {
     stack: flags.string({
-      char: 's',
-      description: 'Stack UID',
-      required: false,
-      exclusive: ['token-alias'],
-      multiple: false,
+      char: "s",
+      description: "Stack UID",
+      exclusive: ["token-alias", "alias"],
+      parse: printFlagDeprecation(['-s', '--stack'], ['-k', '--stack-api-key']),
     }),
 
-    'token-alias': flags.string({
+    "stack-api-key": flags.string({
+      char: "k",
+      description: "Stack API Key",
+      exclusive: ["token-alias", "alias"]
+    }),
+
+    "token-alias": flags.string({
+      char: "a",
+      description: "Management token alias",
+      parse: printFlagDeprecation(['--token-alias'], ['-a', '--alias']),
+    }),
+
+    alias: flags.string({
       char: 'a',
-      description: 'management token alias',
-      required: false,
+      description: 'Alias of the management token',
     }),
 
     order: flags.string({
-      char: 'o',
-      description: 'order by column',
+      char: "o",
+      description: "order by column",
       required: false,
-      options: ['title', 'modified'],
-      default: 'title',
+      options: ["title", "modified"],
+      default: "title",
     }),
-  }
+  };
 
   async run() {
     try {
-      const {flags} = this.parse(ListCommand)
-      this.setup(flags)
+      const { flags } = await this.parse(ListCommand);
+      this.setup(flags);
+      this.contentTypeManagementClient = await managementSDKClient({
+        host: this.cmaHost,
+      });
 
-      cli.action.start(Command.RequestDataMessage)
+      const spinner = cliux.loaderV2(Command.RequestDataMessage);
 
       const [stack, contentTypes] = await Promise.all([
-        this.client.getStack(this.apiKey),
-        this.client.getContentTypes(this.apiKey, false),
-      ])
+        getStack(this.contentTypeManagementClient, this.apiKey, spinner),
+        getContentTypes(this.contentTypeManagementClient, this.apiKey, spinner),
+      ]);
 
-      cli.action.stop()
+      cliux.loaderV2("", spinner);
 
-      const output = buildOutput(contentTypes, flags.order)
-      this.printOutput(output, 'Content Types', null, stack.name)
-    } catch (error) {
-      this.error(error, {exit: 1, suggestions: error.suggestions})
+      const output = buildOutput(contentTypes, flags.order);
+      this.printOutput(output, "Content Types", null, stack.name);
+    } catch (error: any) {
+      this.error(error, { exit: 1, suggestions: error.suggestions });
     }
   }
 }

@@ -1,11 +1,9 @@
-import * as tableImport from 'table'
-import {BuildOutput} from './build-output'
+import {table} from 'table'
+import {BuildOutput} from '../../types'
 import * as format from './formatting'
 
-const {table} = tableImport
-
 export default function buildOutput(contentTypes: any, order: string): BuildOutput {
-  const all = contentTypes.content_types
+  const all = contentTypes 
   const rows = []
 
   rows.push(['Title', 'UID', 'Modified', 'Version'])
@@ -24,7 +22,7 @@ export default function buildOutput(contentTypes: any, order: string): BuildOutp
   return {
     header: null,
     body: table(rows),
-    footer: `Count: ${contentTypes.count}`,
+    footer: `Count: ${contentTypes.length}`,
     rows: rows,
     hasResults: rows.length > 1,
   }
