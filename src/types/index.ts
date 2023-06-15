@@ -43,7 +43,7 @@ export interface DiagramStyleOptions {
 
 export enum DiagramNodeType {
   ContentType,
-  GlobalFields,
+  GlobalFields
 }
 
 export interface Stack {
@@ -54,9 +54,9 @@ export interface Stack {
   org_uid: string;
 }
 
-export type Format = "svg" | "dot" | "json" | "dot_json" | "xdot_json";
+export type Format = 'svg' | 'dot' | 'json' | 'dot_json' | 'xdot_json';
 
 export enum DiagramOrientation {
-  Portrait = "LR",
-  Landscape = "TD",
+  Portrait = 'LR',
+  Landscape = 'TD'
 }

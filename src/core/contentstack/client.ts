@@ -1,6 +1,6 @@
 import axios, {AxiosInstance} from 'axios'
 import ContentstackError from './error'
-import {cliux} from "@contentstack/cli-utilities"
+import {cliux} from '@contentstack/cli-utilities'
 
 export default class ContentstackClient {
   private instance: AxiosInstance;
