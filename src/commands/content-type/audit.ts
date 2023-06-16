@@ -52,7 +52,6 @@ export default class AuditCommand extends Command {
       })
 
       const spinner = cliux.loaderV2(Command.RequestDataMessage)
-      //validate content type
       await getContentType({
         managementSdk: this.contentTypeManagementClient,
         apiKey: this.apiKey,
