@@ -40,7 +40,7 @@ export default class ContentTypeCommand extends Command {
 
       this.apiKey = token.apiKey
     } else {
-      this.apiKey = flags.stackAPIKey as string
+      this.apiKey = stackAPIKey as string
     }
 
     this.client = new ContentstackClient(this.cmaHost, authToken)
@@ -48,6 +48,7 @@ export default class ContentTypeCommand extends Command {
 
   printOutput(output: BuildOutput, who: string, what: string | null, where: string) {
     this.log(`Requested ${who}${what ? ` for '${what}' ` : ' '}on '${where}.'`)
+    this.log('------\n')
 
     if (output.hasResults) {
       if (output.header) {

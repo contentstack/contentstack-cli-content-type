@@ -7,7 +7,7 @@ export default class ListCommand extends Command {
   static description = 'List all Content Types in a Stack'
 
   static examples = [
-    '$ csdx content-type:list -s "xxxxxxxxxxxxxxxxxxx"',
+    '$ csdx content-type:list -k "xxxxxxxxxxxxxxxxxxx"',
     '$ csdx content-type:list -a "management token"',
     '$ csdx content-type:list -a "management token" -o modified'
   ]

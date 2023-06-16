@@ -1,7 +1,7 @@
 import Command from '../../core/command'
 import { flags, FlagInput, managementSDKClient, cliux, printFlagDeprecation } from '@contentstack/cli-utilities'
 import buildOutput from '../../core/content-type/audit'
-import { getStack, getUsers } from '../../utils'
+import { getStack, getUsers, getContentType } from '../../utils'
 
 export default class AuditCommand extends Command {
   static description = 'Display recent changes to a Content Type'
@@ -52,13 +52,18 @@ export default class AuditCommand extends Command {
       })
 
       const spinner = cliux.loaderV2(Command.RequestDataMessage)
-
+      //validate content type
+      await getContentType({
+        managementSdk: this.contentTypeManagementClient,
+        apiKey: this.apiKey,
+        uid: flags['content-type'],
+        spinner
+      });
       const [stack, audit, users] = await Promise.all([
         getStack(this.contentTypeManagementClient, this.apiKey, spinner),
         this.client.getContentTypeAuditLogs(this.apiKey, flags['content-type'], spinner),
         getUsers(this.contentTypeManagementClient, this.apiKey, spinner)
       ])
-
       cliux.loaderV2('', spinner)
 
       const output = buildOutput(audit.logs, users)
