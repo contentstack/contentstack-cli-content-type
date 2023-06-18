@@ -7,9 +7,9 @@ export default class ListCommand extends Command {
   static description = 'List all Content Types in a Stack'
 
   static examples = [
-    '$ csdx content-type:list -k "xxxxxxxxxxxxxxxxxxx"',
-    '$ csdx content-type:list -a "management token"',
-    '$ csdx content-type:list -a "management token" -o modified'
+    '$ csdx content-type:list --stack-api-key "xxxxxxxxxxxxxxxxxxx"',
+    '$ csdx content-type:list --alias "management token"',
+    '$ csdx content-type:list --alias "management token" --order modified'
   ]
 
   static flags: FlagInput = {
@@ -40,9 +40,9 @@ export default class ListCommand extends Command {
     order: flags.string({
       char: 'o',
       description: 'order by column',
-      required: false,
       options: ['title', 'modified'],
-      default: 'title'
+      default: 'title',
+      parse: printFlagDeprecation(['-o'], ['--order'])
     })
   }
 

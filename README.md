@@ -81,9 +81,9 @@ DESCRIPTION
   Display recent changes to a Content Type
 
 EXAMPLES
-  $ csdx content-type:audit -k "xxxxxxxxxxxxxxxxxxx" -c "home_page"
+  $ csdx content-type:audit --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page"
 
-  $ csdx content-type:audit -a "management token" -c "home_page"
+  $ csdx content-type:audit --alias "management token" --content-type "home_page"
 ```
 
 _See code: [src/commands/content-type/audit.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.7/src/commands/content-type/audit.ts)_
@@ -109,11 +109,11 @@ DESCRIPTION
   Compare two Content Type versions
 
 EXAMPLES
-  $ csdx content-type:compare -k "xxxxxxxxxxxxxxxxxxx" -c "home_page"
+  $ csdx content-type:compare --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page"
 
-  $ csdx content-type:compare -k "xxxxxxxxxxxxxxxxxxx" -c "home_page" -l # -r #
+  $ csdx content-type:compare --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page" --left # --right #
 
-  $ csdx content-type:compare -a "management token" -c "home_page" -l # -r #
+  $ csdx content-type:compare --alias "management token" --content-type "home_page" --left # --right #
 ```
 
 _See code: [src/commands/content-type/compare.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.7/src/commands/content-type/compare.ts)_
@@ -135,7 +135,7 @@ DESCRIPTION
   compare two Content Types on different Stacks
 
 EXAMPLES
-  $ csdx content-type:compare-remote -o "xxxxxxxxxxxxxxxxxxx" -r "xxxxxxxxxxxxxxxxxxx" -c "home_page"
+  $ csdx content-type:compare-remote --origin-stack "xxxxxxxxxxxxxxxxxxx" --remote-stack "xxxxxxxxxxxxxxxxxxx" -content-type "home_page"
 ```
 
 _See code: [src/commands/content-type/compare-remote.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.7/src/commands/content-type/compare-remote.ts)_
@@ -160,11 +160,11 @@ DESCRIPTION
   Display Content Type details
 
 EXAMPLES
-  $ csdx content-type:details -k "xxxxxxxxxxxxxxxxxxx" -c "home_page"
+  $ csdx content-type:details --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page"
 
-  $ csdx content-type:details -a "management token" -c "home_page"
+  $ csdx content-type:details --alias "management token" --content-type "home_page"
 
-  $ csdx content-type:details -a "management token" -c "home_page" --no-path
+  $ csdx content-type:details --alias "management token" --content-type "home_page" --no-path
 ```
 
 _See code: [src/commands/content-type/details.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.7/src/commands/content-type/details.ts)_
@@ -193,13 +193,13 @@ DESCRIPTION
   Create a visual diagram of a Stack's Content Types
 
 EXAMPLES
-  $ csdx content-type:diagram -k "xxxxxxxxxxxxxxxxxxx" -o "content-model.svg"
+  $ csdx content-type:diagram --stack-api-key "xxxxxxxxxxxxxxxxxxx" --output "content-model.svg"
 
-  $ csdx content-type:diagram -a "management token" -o "content-model.svg"
+  $ csdx content-type:diagram --alias "management token" --output "content-model.svg"
 
-  $ csdx content-type:diagram -a "management token" -o "content-model.svg" -d "landscape"
+  $ csdx content-type:diagram --alias "management token" --output "content-model.svg" --direction "landscape"
 
-  $ csdx content-type:diagram -a "management token" -o "content-model.dot" -t "dot"
+  $ csdx content-type:diagram --alias "management token" --output "content-model.dot" --type "dot"
 ```
 
 _See code: [src/commands/content-type/diagram.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.7/src/commands/content-type/diagram.ts)_
@@ -224,11 +224,11 @@ DESCRIPTION
   List all Content Types in a Stack
 
 EXAMPLES
-  $ csdx content-type:list -k "xxxxxxxxxxxxxxxxxxx"
+  $ csdx content-type:list --stack-api-key "xxxxxxxxxxxxxxxxxxx"
 
-  $ csdx content-type:list -a "management token"
+  $ csdx content-type:list --alias "management token"
 
-  $ csdx content-type:list -a "management token" -o modified
+  $ csdx content-type:list --alias "management token" --order modified
 ```
 
 _See code: [src/commands/content-type/list.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.7/src/commands/content-type/list.ts)_

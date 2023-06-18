@@ -7,8 +7,8 @@ export default class AuditCommand extends Command {
   static description = 'Display recent changes to a Content Type'
 
   static examples = [
-    '$ csdx content-type:audit -k "xxxxxxxxxxxxxxxxxxx" -c "home_page"',
-    '$ csdx content-type:audit -a "management token" -c "home_page"'
+    '$ csdx content-type:audit --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page"',
+    '$ csdx content-type:audit --alias "management token" --content-type "home_page"'
   ]
 
   static flags: FlagInput = {
@@ -39,7 +39,8 @@ export default class AuditCommand extends Command {
     'content-type': flags.string({
       char: 'c',
       description: 'Content Type UID',
-      required: true
+      required: true,
+      parse: printFlagDeprecation(['-c'], ['--content-type'])
     })
   }
 

@@ -7,9 +7,9 @@ export default class CompareCommand extends Command {
   static description = 'Compare two Content Type versions'
 
   static examples = [
-    '$ csdx content-type:compare -k "xxxxxxxxxxxxxxxxxxx" -c "home_page"',
-    '$ csdx content-type:compare -k "xxxxxxxxxxxxxxxxxxx" -c "home_page" -l # -r #',
-    '$ csdx content-type:compare -a "management token" -c "home_page" -l # -r #'
+    '$ csdx content-type:compare --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page"',
+    '$ csdx content-type:compare --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page" --left # --right #',
+    '$ csdx content-type:compare --alias "management token" --content-type "home_page" --left # --right #'
   ]
 
   static flags: FlagInput = {
@@ -40,21 +40,22 @@ export default class CompareCommand extends Command {
     'content-type': flags.string({
       char: 'c',
       description: 'Content Type UID',
-      required: true
+      required: true,
+      parse: printFlagDeprecation(['-c'], ['--content-type'])
     }),
 
     left: flags.integer({
       char: 'l',
       description: 'Content Type version, i.e. prev version',
-      required: false,
-      dependsOn: ['right']
+      dependsOn: ['right'],
+      parse: printFlagDeprecation(['-l'], ['--left'])
     }),
 
     right: flags.integer({
       char: 'r',
       description: 'Content Type version, i.e. later version',
-      required: false,
-      dependsOn: ['left']
+      dependsOn: ['left'],
+      parse: printFlagDeprecation(['-r'], ['--right'])
     })
   }
 

@@ -8,10 +8,10 @@ export default class DiagramCommand extends Command {
   static description = "Create a visual diagram of a Stack's Content Types"
 
   static examples = [
-    '$ csdx content-type:diagram -k "xxxxxxxxxxxxxxxxxxx" -o "content-model.svg"',
-    '$ csdx content-type:diagram -a "management token" -o "content-model.svg"',
-    '$ csdx content-type:diagram -a "management token" -o "content-model.svg" -d "landscape"',
-    '$ csdx content-type:diagram -a "management token" -o "content-model.dot" -t "dot"'
+    '$ csdx content-type:diagram --stack-api-key "xxxxxxxxxxxxxxxxxxx" --output "content-model.svg"',
+    '$ csdx content-type:diagram --alias "management token" --output "content-model.svg"',
+    '$ csdx content-type:diagram --alias "management token" --output "content-model.svg" --direction "landscape"',
+    '$ csdx content-type:diagram --alias "management token" --output "content-model.dot" --type "dot"'
   ]
 
   static flags: FlagInput = {
@@ -44,7 +44,8 @@ export default class DiagramCommand extends Command {
       description: 'full path to output',
       hidden: false,
       multiple: false,
-      required: true
+      required: true,
+      parse: printFlagDeprecation(['-o'], ['--output'])
     }),
 
     direction: flags.string({
@@ -54,7 +55,8 @@ export default class DiagramCommand extends Command {
       options: ['portrait', 'landscape'],
       hidden: false,
       multiple: false,
-      required: true
+      required: true,
+      parse: printFlagDeprecation(['-d'], ['--direction'])
     }),
 
     type: flags.string({
@@ -64,7 +66,8 @@ export default class DiagramCommand extends Command {
       options: ['svg', 'dot'],
       hidden: false,
       multiple: false,
-      required: true
+      required: true,
+      parse: printFlagDeprecation(['-t'], ['--type'])
     })
   }
 
