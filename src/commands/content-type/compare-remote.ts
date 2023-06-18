@@ -1,5 +1,5 @@
 import Command from '../../core/command'
-import { flags, FlagInput, managementSDKClient, cliux } from '@contentstack/cli-utilities'
+import { flags, FlagInput, managementSDKClient, cliux, printFlagDeprecation } from '@contentstack/cli-utilities'
 import buildOutput from '../../core/content-type/compare'
 import { getStack, getContentType } from '../../utils'
 
@@ -7,7 +7,7 @@ export default class CompareRemoteCommand extends Command {
   static description = 'compare two Content Types on different Stacks'
 
   static examples = [
-    '$ csdx content-type:compare-remote -o "xxxxxxxxxxxxxxxxxxx" -r "xxxxxxxxxxxxxxxxxxx" -c "home_page"'
+    '$ csdx content-type:compare-remote --origin-stack "xxxxxxxxxxxxxxxxxxx" --remote-stack "xxxxxxxxxxxxxxxxxxx" -content-type "home_page"'
   ]
 
   static flags: FlagInput = {
@@ -15,20 +15,23 @@ export default class CompareRemoteCommand extends Command {
       char: 'o',
       description: 'Origin Stack API Key',
       required: true,
-      dependsOn: ['remote-stack']
+      dependsOn: ['remote-stack'],
+      parse: printFlagDeprecation(['-o'], ['--remote-stack'])
     }),
 
     'remote-stack': flags.string({
       char: 'r',
       description: 'Remote Stack API Key',
       required: true,
-      dependsOn: ['origin-stack']
+      dependsOn: ['origin-stack'],
+      parse: printFlagDeprecation(['-r'], ['--remote-stack'])
     }),
 
     'content-type': flags.string({
       char: 'c',
       description: 'Content Type UID',
-      required: true
+      required: true,
+      parse: printFlagDeprecation(['-c'], ['--content-type'])
     })
   }
 

@@ -7,9 +7,9 @@ export default class DetailsCommand extends Command {
   static description = 'Display Content Type details'
 
   static examples = [
-    '$ csdx content-type:details -k "xxxxxxxxxxxxxxxxxxx" -c "home_page"',
-    '$ csdx content-type:details -a "management token" -c "home_page"',
-    '$ csdx content-type:details -a "management token" -c "home_page" --no-path'
+    '$ csdx content-type:details --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page"',
+    '$ csdx content-type:details --alias "management token" --content-type "home_page"',
+    '$ csdx content-type:details --alias "management token" --content-type "home_page" --no-path'
   ]
 
   static flags: FlagInput = {
@@ -40,14 +40,16 @@ export default class DetailsCommand extends Command {
     'content-type': flags.string({
       char: 'c',
       description: 'Content Type UID',
-      required: true
+      required: true,
+      parse: printFlagDeprecation(['-c'], ['--content-type'])
     }),
 
     path: flags.boolean({
       char: 'p',
       description: 'show path column',
       default: true,
-      allowNo: true
+      allowNo: true,
+      parse: printFlagDeprecation(['-p'], ['--path'])
     })
   }
 
