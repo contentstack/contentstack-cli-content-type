@@ -5,7 +5,7 @@ import * as Diff2html from 'diff2html'
 import gitDiff from 'git-diff'
 import {BuildOutput} from '../../types'
 
-export default async function buildOutput(contentTypeName: string, previous: any, current: any): Promise<BuildOutput> {  
+export default async function buildOutput(contentTypeName: string, previous: any, current: any): Promise<BuildOutput> {
   const diffString = buildDiffString(previous, current)
   const diffTree = Diff2html.parse(diffString)
   const diffHtml = Diff2html.html(diffTree, {

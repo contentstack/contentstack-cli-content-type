@@ -20,13 +20,14 @@ export async function getStack(managementSdk: any, apiKey: string, spinner: any)
 }
 
 export async function getUsers(managementSdk: any, apiKey: string, spinner: any) {
-  return await managementSdk
+  const users = await managementSdk
     .stack({ api_key: apiKey })
     .users()
     .then((data: any) => data)
     .catch((error: any) => {
       handleErrorMsg(error, spinner)
     })
+    return users
 }
 
 export async function getContentTypes(
@@ -49,7 +50,7 @@ export async function getContentTypes(
   if (ct?.items?.length > 0) {
     contentTypes = [...contentTypes, ...ct.items]
     skip += config.limit
-    if (skip < ct.count) return await getContentTypes(managementSdk, apiKey, spinner, skip, contentTypes)
+    if (skip < ct.count) return getContentTypes(managementSdk, apiKey, spinner, skip, contentTypes)
   }
   return contentTypes
 }
@@ -74,7 +75,7 @@ export async function getGlobalFields(
   if (gf?.items?.length > 0) {
     globalFields = [...globalFields, ...gf.items]
     skip += config.limit
-    if (skip < gf.count) return await getGlobalFields(managementSdk, apiKey, spinner, skip, globalFields)
+    if (skip < gf.count) return getGlobalFields(managementSdk, apiKey, spinner, skip, globalFields)
   }
   return globalFields
 }
@@ -88,7 +89,7 @@ export async function getContentType(params: {
 }) {
   const { managementSdk, apiKey, ctVersion, spinner, uid } = params
   const param = ctVersion ? { version: ctVersion } : {}
-  return await managementSdk
+  const ct = await managementSdk
     .stack({ api_key: apiKey })
     .contentType(uid)
     .fetch(param)
@@ -96,6 +97,7 @@ export async function getContentType(params: {
     .catch((error: any) => {
       handleErrorMsg(error, spinner)
     })
+  return ct
 }
 
 function handleErrorMsg(err: any, spinner: any) {

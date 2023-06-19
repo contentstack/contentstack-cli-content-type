@@ -7,8 +7,6 @@
   "dependencies": {
     "@contentstack/cli-command": "^1.2.8",
     "@contentstack/cli-utilities": "^1.4.4",
-    "@oclif/command": "^1.8.0",
-    "@oclif/config": "^1.17.0",
     "@types/diff2html": "^3.0.0",
     "@types/git-diff": "^2.0.2",
     "@types/hogan.js": "^3.0.0",
