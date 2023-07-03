@@ -1,41 +1,54 @@
-import {Command} from '@contentstack/cli-command'
-import {BuildOutput} from './content-type/build-output'
+import { Command } from '@contentstack/cli-command'
+import { configHandler, cliux } from '@contentstack/cli-utilities'
+import { BuildOutput } from '../types'
 import ContentstackClient from './contentstack/client'
 
 export default class ContentTypeCommand extends Command {
-  protected static RequestDataMessage = 'Requesting data';
+  protected static RequestDataMessage = 'Requesting data'
 
-  protected apiKey!: string;
+  protected apiKey!: string
 
-  protected client!: ContentstackClient;
+  protected client!: ContentstackClient
+
+  protected contentTypeManagementClient: any
 
   setup(flags: any) {
-    if (!this.authToken) {
-      this.error('You need to login, first. See: auth:login --help', {exit: 2, suggestions: ['https://www.contentstack.com/docs/developers/cli/authentication/']})
+    const authToken = configHandler.get('authtoken')
+    if (!authToken) {
+      this.error('You need to login, first. See: auth:login --help', {
+        exit: 2,
+        suggestions: ['https://www.contentstack.com/docs/developers/cli/authentication/']
+      })
+    }
+    const stackAPIKey = flags.stack || flags['stack-api-key']
+    const mTokenAlias = flags['token-alias'] || flags.alias
+
+    if (!mTokenAlias && !stackAPIKey) {
+      cliux.print('Error: You must provide either a token alias or a Stack UID.', { color: 'red' })
+      process.exit(1)
     }
 
-    if (!flags['token-alias'] && !flags.stack) {
-      this.error('You must provide either a token alias or a Stack UID.', {exit: 2})
-    }
-
-    if (flags['token-alias']) {
-      const token = this.getToken(flags['token-alias'])
+    if (mTokenAlias) {
+      const token = this.getToken(mTokenAlias)
 
       if (token.type !== 'management') {
-        this.warn('Possibly using a delivery token. You may not be able to connect to your Stack. Please use a management token.')
+        cliux.print(
+          'Possibly using a delivery token. You may not be able to connect to your Stack. Please use a management token.',
+          { color: 'yellow' }
+        )
       }
 
       this.apiKey = token.apiKey
     } else {
-      this.apiKey = flags.stack as string
+      this.apiKey = stackAPIKey as string
     }
 
-    this.client = new ContentstackClient(this.cmaHost, this.authToken)
+    this.client = new ContentstackClient(this.cmaHost, authToken)
   }
 
   printOutput(output: BuildOutput, who: string, what: string | null, where: string) {
     this.log(`Requested ${who}${what ? ` for '${what}' ` : ' '}on '${where}.'`)
-    this.log('---\n')
+    this.log('------\n')
 
     if (output.hasResults) {
       if (output.header) {
@@ -52,5 +65,9 @@ export default class ContentTypeCommand extends Command {
     } else {
       this.log(`No ${who} found.`)
     }
+  }
+
+  async run() {
+    this.log('content type command')
   }
 }

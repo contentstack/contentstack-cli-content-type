@@ -1,41 +1,47 @@
 import Command from '../../core/command'
-import {flags} from '@contentstack/cli-command'
-import cli from 'cli-ux'
+import { flags, FlagInput, managementSDKClient, cliux, printFlagDeprecation } from '@contentstack/cli-utilities'
 import buildOutput from '../../core/content-type/compare'
+import { getStack, getContentType } from '../../utils'
 
 export default class CompareRemoteCommand extends Command {
-  static description = 'compare two Content Types on different Stacks';
+  static description = 'compare two Content Types on different Stacks'
 
   static examples = [
-    '$ csdx content-type:compare-remote -o "xxxxxxxxxxxxxxxxxxx" -r "xxxxxxxxxxxxxxxxxxx" -c "home_page"',
-  ];
+    '$ csdx content-type:compare-remote --origin-stack "xxxxxxxxxxxxxxxxxxx" --remote-stack "xxxxxxxxxxxxxxxxxxx" -content-type "home_page"'
+  ]
 
-  static flags = {
+  static flags: FlagInput = {
     'origin-stack': flags.string({
       char: 'o',
-      description: 'origin Stack UID',
+      description: 'Origin Stack API Key',
       required: true,
       dependsOn: ['remote-stack'],
+      parse: printFlagDeprecation(['-o'], ['--remote-stack'])
     }),
 
     'remote-stack': flags.string({
       char: 'r',
-      description: 'remote Stack UID',
+      description: 'Remote Stack API Key',
       required: true,
       dependsOn: ['origin-stack'],
+      parse: printFlagDeprecation(['-r'], ['--remote-stack'])
     }),
 
     'content-type': flags.string({
       char: 'c',
       description: 'Content Type UID',
       required: true,
-    }),
+      parse: printFlagDeprecation(['-c'], ['--content-type'])
+    })
   }
 
   async run() {
     try {
-      const {flags} = this.parse(CompareRemoteCommand)
-      this.setup({'token-alias': undefined, stack: flags['origin-stack']})
+      const { flags } = await this.parse(CompareRemoteCommand)
+      this.setup({ alias: undefined, stack: flags['origin-stack'] })
+      this.contentTypeManagementClient = await managementSDKClient({
+        host: this.cmaHost
+      })
 
       const originStackApi = flags['origin-stack'] as string
       const remoteStackApi = flags['remote-stack'] as string
@@ -44,21 +50,31 @@ export default class CompareRemoteCommand extends Command {
         this.warn('Comparing the same Stack does not produce useful results.')
       }
 
-      cli.action.start(Command.RequestDataMessage)
+      const spinner = cliux.loaderV2(Command.RequestDataMessage)
 
       const [originStackResp, remoteStackResp, originContentTypeResp, remoteContentTypeResp] = await Promise.all([
-        this.client.getStack(originStackApi),
-        this.client.getStack(remoteStackApi),
-        this.client.getContentType(originStackApi, flags['content-type'], true),
-        this.client.getContentType(remoteStackApi, flags['content-type'], true),
+        getStack(this.contentTypeManagementClient, originStackApi, spinner),
+        getStack(this.contentTypeManagementClient, remoteStackApi, spinner),
+        getContentType({
+          managementSdk: this.contentTypeManagementClient,
+          apiKey: originStackApi,
+          uid: flags['content-type'],
+          spinner
+        }),
+        getContentType({
+          managementSdk: this.contentTypeManagementClient,
+          apiKey: remoteStackApi,
+          uid: flags['content-type'],
+          spinner
+        })
       ])
 
-      cli.action.stop()
+      cliux.loaderV2('', spinner)
 
       const output = await buildOutput(flags['content-type'], originContentTypeResp, remoteContentTypeResp)
       this.printOutput(output, 'changes', flags['content-type'], `${originStackResp.name} <-> ${remoteStackResp.name}`)
-    } catch (error) {
-      this.error(error, {exit: 1, suggestions: error.suggestions})
+    } catch (error: any) {
+      this.error(error, { exit: 1, suggestions: error.suggestions })
     }
   }
 }

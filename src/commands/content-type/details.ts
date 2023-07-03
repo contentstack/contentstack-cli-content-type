@@ -1,36 +1,47 @@
 import Command from '../../core/command'
-import {flags} from '@contentstack/cli-command'
+import { flags, FlagInput, managementSDKClient, cliux, printFlagDeprecation } from '@contentstack/cli-utilities'
 import buildOutput from '../../core/content-type/details'
-import cli from 'cli-ux'
+import { getStack, getContentType } from '../../utils'
 
 export default class DetailsCommand extends Command {
-  static description = 'display Content Type details';
+  static description = 'Display Content Type details'
 
   static examples = [
-    '$ csdx content-type:details -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"',
-    '$ csdx content-type:details -a "management token" -c "home_page"',
-    '$ csdx content-type:details -a "management token" -c "home_page" --no-path',
-  ];
+    '$ csdx content-type:details --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page"',
+    '$ csdx content-type:details --alias "management token" --content-type "home_page"',
+    '$ csdx content-type:details --alias "management token" --content-type "home_page" --no-path'
+  ]
 
-  static flags = {
+  static flags: FlagInput = {
     stack: flags.string({
       char: 's',
       description: 'Stack UID',
-      required: false,
       exclusive: ['token-alias'],
+      parse: printFlagDeprecation(['-s', '--stack'], ['-k', '--stack-api-key'])
+    }),
+
+    'stack-api-key': flags.string({
+      char: 'k',
+      description: 'Stack API Key',
+      exclusive: ['token-alias']
     }),
 
     'token-alias': flags.string({
       char: 'a',
-      description: 'management token alias',
-      required: false,
-      multiple: false,
+      description: 'Management token alias',
+      parse: printFlagDeprecation(['--token-alias'], ['-a', '--alias'])
+    }),
+
+    alias: flags.string({
+      char: 'a',
+      description: 'Alias of the management token'
     }),
 
     'content-type': flags.string({
       char: 'c',
       description: 'Content Type UID',
       required: true,
+      parse: printFlagDeprecation(['-c'], ['--content-type'])
     }),
 
     path: flags.boolean({
@@ -38,28 +49,39 @@ export default class DetailsCommand extends Command {
       description: 'show path column',
       default: true,
       allowNo: true,
-    }),
+      parse: printFlagDeprecation(['-p'], ['--path'])
+    })
   }
 
   async run() {
     try {
-      const {flags} = this.parse(DetailsCommand)
+      const { flags } = await this.parse(DetailsCommand)
       this.setup(flags)
+      this.contentTypeManagementClient = await managementSDKClient({
+        host: this.cmaHost
+      })
 
-      cli.action.start(Command.RequestDataMessage)
+      const spinner = cliux.loaderV2(Command.RequestDataMessage)
 
       const [stack, contentType, references] = await Promise.all([
-        this.client.getStack(this.apiKey),
-        this.client.getContentType(this.apiKey, flags['content-type'], true),
-        this.client.getContentTypeReferences(this.apiKey, flags['content-type']),
+        getStack(this.contentTypeManagementClient, this.apiKey, spinner),
+        getContentType({
+          managementSdk: this.contentTypeManagementClient,
+          apiKey: this.apiKey,
+          uid: flags['content-type'],
+          spinner
+        }),
+        this.client.getContentTypeReferences(this.apiKey, flags['content-type'], spinner)
       ])
 
-      cli.action.stop()
+      cliux.loaderV2('', spinner)
 
-      const output = buildOutput(contentType, references, {showPath: flags.path})
+      const output = buildOutput(contentType, references, {
+        showPath: flags.path
+      })
       this.printOutput(output, 'details', flags['content-type'], stack.name)
-    } catch (error) {
-      this.error(error, {exit: 1, suggestions: error.suggestions})
+    } catch (error: any) {
+      this.error(error, { exit: 1, suggestions: error.suggestions })
     }
   }
 }
