@@ -1,31 +1,42 @@
 import Command from '../../core/command'
-import {flags} from '@contentstack/cli-command'
-import cli from 'cli-ux'
-import {createDiagram, CreateDiagramOptions, DiagramOrientation} from '../../core/content-type/diagram'
+import { flags, FlagInput, managementSDKClient, cliux, printFlagDeprecation } from '@contentstack/cli-utilities'
+import { createDiagram } from '../../core/content-type/diagram'
+import { CreateDiagramOptions, DiagramOrientation } from '../../types'
+import { getStack, getContentTypes, getGlobalFields } from '../../utils'
 
 export default class DiagramCommand extends Command {
-  static description = 'create a visual diagram of a Stack\'s Content Types';
+  static description = "Create a visual diagram of a Stack's Content Types"
 
   static examples = [
-    '$ csdx content-type:diagram -s "xxxxxxxxxxxxxxxxxxx" -o "content-model.svg"',
-    '$ csdx content-type:diagram -a "management token" -o "content-model.svg"',
-    '$ csdx content-type:diagram -a "management token" -o "content-model.svg" -d "landscape"',
-    '$ csdx content-type:diagram -a "management token" -o "content-model.dot" -t "dot"',
-  ];
+    '$ csdx content-type:diagram --stack-api-key "xxxxxxxxxxxxxxxxxxx" --output "content-model.svg"',
+    '$ csdx content-type:diagram --alias "management token" --output "content-model.svg"',
+    '$ csdx content-type:diagram --alias "management token" --output "content-model.svg" --direction "landscape"',
+    '$ csdx content-type:diagram --alias "management token" --output "content-model.dot" --type "dot"'
+  ]
 
-  static flags = {
+  static flags: FlagInput = {
     stack: flags.string({
       char: 's',
       description: 'Stack UID',
-      required: false,
-      exclusive: ['token-alias'],
-      multiple: false,
+      exclusive: ['token-alias', 'alias'],
+      parse: printFlagDeprecation(['-s', '--stack'], ['-k', '--stack-api-key'])
+    }),
+
+    'stack-api-key': flags.string({
+      char: 'k',
+      description: 'Stack API Key',
+      exclusive: ['token-alias', 'alias']
     }),
 
     'token-alias': flags.string({
       char: 'a',
-      description: 'management token alias',
-      required: false,
+      description: 'Management token alias',
+      parse: printFlagDeprecation(['--token-alias'], ['-a', '--alias'])
+    }),
+
+    alias: flags.string({
+      char: 'a',
+      description: 'Alias of the management token'
     }),
 
     output: flags.string({
@@ -34,6 +45,7 @@ export default class DiagramCommand extends Command {
       hidden: false,
       multiple: false,
       required: true,
+      parse: printFlagDeprecation(['-o'], ['--output'])
     }),
 
     direction: flags.string({
@@ -44,6 +56,7 @@ export default class DiagramCommand extends Command {
       hidden: false,
       multiple: false,
       required: true,
+      parse: printFlagDeprecation(['-d'], ['--direction'])
     }),
 
     type: flags.string({
@@ -54,45 +67,49 @@ export default class DiagramCommand extends Command {
       hidden: false,
       multiple: false,
       required: true,
-    }),
+      parse: printFlagDeprecation(['-t'], ['--type'])
+    })
   }
 
   async run() {
     try {
-      const {flags} = this.parse(DiagramCommand)
+      const { flags } = await this.parse(DiagramCommand)
+      this.contentTypeManagementClient = await managementSDKClient({
+        host: this.cmaHost
+      })
       this.setup(flags)
 
       const outputPath = flags.output
 
-      if (!outputPath || !outputPath.trim()) {
-        this.error('Please provide an output path.', {exit: 2})
+      if (!outputPath?.trim()) {
+        this.error('Please provide an output path.', { exit: 2 })
       }
 
-      cli.action.start(Command.RequestDataMessage)
+      const spinner = cliux.loaderV2(Command.RequestDataMessage)
 
       const [stack, contentTypes, globalFields] = await Promise.all([
-        this.client.getStack(this.apiKey),
-        this.client.getContentTypes(this.apiKey, false),
-        this.client.getGlobalFields(this.apiKey),
+        getStack(this.contentTypeManagementClient, this.apiKey, spinner),
+        getContentTypes(this.contentTypeManagementClient, this.apiKey, spinner),
+        getGlobalFields(this.contentTypeManagementClient, this.apiKey, spinner)
       ])
 
-      cli.action.stop()
+      cliux.loaderV2('', spinner)
 
       const diagramOptions: CreateDiagramOptions = {
         stackName: stack.name,
-        contentTypes: contentTypes.content_types,
-        globalFields: globalFields.global_fields,
+        contentTypes: contentTypes,
+        globalFields: globalFields,
         outputFileName: outputPath,
         outputFileType: flags.type,
         style: {
-          orientation: flags.direction === 'portrait' ? DiagramOrientation.Portrait : DiagramOrientation.Landscape,
-        },
+          orientation: flags.direction === 'portrait' ? DiagramOrientation.Portrait : DiagramOrientation.Landscape
+        }
       }
 
       const output = await createDiagram(diagramOptions)
       this.log(`Created Graph: ${output.outputPath}`)
-    } catch (error) {
-      this.error(error, {exit: 1, suggestions: error.suggestions})
+    } catch (error: any) {
+      this.error(error, { exit: 1, suggestions: error.suggestions })
     }
   }
 }

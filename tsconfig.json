@@ -8,7 +8,8 @@
     "strict": true,
     "target": "es2017",
     "allowJs": true,
-    "esModuleInterop": true
+    "skipLibCheck": true,
+    "esModuleInterop": true,
   },
   "include": [
     "src/**/*", "src/typings/@contentstack/cli-command.ts"

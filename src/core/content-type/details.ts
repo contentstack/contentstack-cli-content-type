@@ -1,8 +1,6 @@
-import * as tableImport from 'table'
-import {BuildOutput} from './build-output'
+import {table} from 'table'
+import {BuildOutput} from '../../types'
 import * as format from './formatting'
-
-const {table} = tableImport
 
 let buildOptions = {
   showPath: true,
@@ -11,8 +9,8 @@ let buildOptions = {
 export default function buildOutput(contentType: any, references: any, options: any): BuildOutput {
   buildOptions = Object.assign(buildOptions, options)
 
-  const header = buildHeader(contentType.content_type, references.references)
-  const body = buildBody(contentType.content_type.schema)
+  const header = buildHeader(contentType, references.references)
+  const body = buildBody(contentType.schema)
 
   return {
     header: header,

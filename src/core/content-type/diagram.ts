@@ -1,7 +1,16 @@
 import * as path from 'path'
 import * as fs from 'fs'
 import moment from 'moment'
-const {graphviz} = require('node-graphviz')
+import {graphviz} from 'node-graphviz'
+import {
+DiagramNode,
+DiagramNodeField,
+CreateDiagramOptions,
+CreateDiagramResults,
+DiagramStyleOptions,
+DiagramNodeType,
+Format
+} from '../../types'
 
 const theme = {
   graph: {
@@ -41,51 +50,6 @@ const theme = {
   },
 }
 
-enum DiagramNodeType {
-    ContentType,
-    GlobalFields
-}
-
-interface DiagramNode {
-    uid: string;
-    title: string;
-    fields: DiagramNodeField[];
-}
-
-interface DiagramNodeField {
-    uid: string;
-    title: string;
-    path: string | null;
-    type: string | null;
-    fields: DiagramNodeField[];
-    references: string[];
-    multiple: boolean;
-    mandatory: boolean;
-    unique: boolean;
-}
-
-export interface CreateDiagramOptions {
-  stackName: string;
-  contentTypes: any[];
-  globalFields: any[];
-  outputFileName: string;
-  outputFileType: string;
-  style: DiagramStyleOptions;
-}
-
-export interface CreateDiagramResults {
-  outputPath: string;
-}
-
-export enum DiagramOrientation {
-  Portrait = 'LR',
-  Landscape = 'TD'
-}
-
-export interface DiagramStyleOptions {
-  orientation: DiagramOrientation;
-}
-
 export async function createDiagram(options: CreateDiagramOptions): Promise<CreateDiagramResults> {
   const contentTypeNodes = createNodes(options.contentTypes)
   const globalFieldNodes = createNodes(options.globalFields)
@@ -94,7 +58,7 @@ export async function createDiagram(options: CreateDiagramOptions): Promise<Crea
 
   const dotSource = createDotSource(graphLabel, contentTypeNodes, globalFieldNodes, options.style)
 
-  const dotOutput = await graphviz.dot(dotSource, options.outputFileType)
+  const dotOutput = await graphviz.dot(dotSource, options.outputFileType as Format)
   const outputPath = createOutputPath(options.outputFileName)
 
   fs.writeFileSync(outputPath, dotOutput)

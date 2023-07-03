@@ -64,46 +64,59 @@ $ csdx content-type:details -a "management token" -c "content type" --no-path
 
 ## `csdx content-type:audit`
 
-display recent changes to a Content Type
+Display recent changes to a Content Type
 
 ```
 USAGE
-  $ csdx content-type:audit
+  $ csdx content-type:audit -c <value> [-s <value> | -a <value> | -a <value>] [-k <value> |  | ]
 
-OPTIONS
-  -a, --token-alias=token-alias    management token alias
-  -c, --content-type=content-type  (required) Content Type UID
-  -s, --stack=stack                Stack UID
+FLAGS
+  -a, --alias=<value>          Alias of the management token
+  -a, --token-alias=<value>    Management token alias
+  -c, --content-type=<value>   (required) Content Type UID
+  -k, --stack-api-key=<value>  Stack API Key
+  -s, --stack=<value>          Stack UID
+
+DESCRIPTION
+  Display recent changes to a Content Type
 
 EXAMPLES
-  $ csdx content-type:audit -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"
-  $ csdx content-type:audit -a "management token" -c "home_page"
+  $ csdx content-type:audit --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page"
+
+  $ csdx content-type:audit --alias "management token" --content-type "home_page"
 ```
 
-_See code: [src/commands/content-type/audit.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.7/src/commands/content-type/audit.ts)_
+_See code: [src/commands/content-type/audit.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.1.0/src/commands/content-type/audit.ts)_
 
 ## `csdx content-type:compare`
 
-compare two Content Type versions
+Compare two Content Type versions
 
 ```
 USAGE
-  $ csdx content-type:compare
+  $ csdx content-type:compare -c <value> [-s <value> | -a <value>] [-k <value> | ] [-a <value>] [-l <value> -r <value>]
 
-OPTIONS
-  -a, --token-alias=token-alias    management token alias
-  -c, --content-type=content-type  (required) Content Type UID
-  -l, --left=left                  Content Type version, i.e. prev version
-  -r, --right=right                Content Type version, i.e. later version
-  -s, --stack=stack                Stack UID
+FLAGS
+  -a, --alias=<value>          Alias of the management token
+  -a, --token-alias=<value>    Management token alias
+  -c, --content-type=<value>   (required) Content Type UID
+  -k, --stack-api-key=<value>  Stack API Key
+  -l, --left=<value>           Content Type version, i.e. prev version
+  -r, --right=<value>          Content Type version, i.e. later version
+  -s, --stack=<value>          Stack UID
+
+DESCRIPTION
+  Compare two Content Type versions
 
 EXAMPLES
-  $ csdx content-type:compare -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"
-  $ csdx content-type:compare -s "xxxxxxxxxxxxxxxxxxx" -c "home_page" -l # -r #
-  $ csdx content-type:compare -a "management token" -c "home_page" -l # -r #
+  $ csdx content-type:compare --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page"
+
+  $ csdx content-type:compare --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page" --left # --right #
+
+  $ csdx content-type:compare --alias "management token" --content-type "home_page" --left # --right #
 ```
 
-_See code: [src/commands/content-type/compare.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.7/src/commands/content-type/compare.ts)_
+_See code: [src/commands/content-type/compare.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.1.0/src/commands/content-type/compare.ts)_
 
 ## `csdx content-type:compare-remote`
 
@@ -111,83 +124,112 @@ compare two Content Types on different Stacks
 
 ```
 USAGE
-  $ csdx content-type:compare-remote
+  $ csdx content-type:compare-remote (-o <value> -r <value>) -c <value>
 
-OPTIONS
-  -c, --content-type=content-type  (required) Content Type UID
-  -o, --origin-stack=origin-stack  (required) origin Stack UID
-  -r, --remote-stack=remote-stack  (required) remote Stack UID
+FLAGS
+  -c, --content-type=<value>  (required) Content Type UID
+  -o, --origin-stack=<value>  (required) Origin Stack API Key
+  -r, --remote-stack=<value>  (required) Remote Stack API Key
 
-EXAMPLE
-  $ csdx content-type:compare-remote -o "xxxxxxxxxxxxxxxxxxx" -r "xxxxxxxxxxxxxxxxxxx" -c "home_page"
+DESCRIPTION
+  compare two Content Types on different Stacks
+
+EXAMPLES
+  $ csdx content-type:compare-remote --origin-stack "xxxxxxxxxxxxxxxxxxx" --remote-stack "xxxxxxxxxxxxxxxxxxx" -content-type "home_page"
 ```
 
-_See code: [src/commands/content-type/compare-remote.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.7/src/commands/content-type/compare-remote.ts)_
+_See code: [src/commands/content-type/compare-remote.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.1.0/src/commands/content-type/compare-remote.ts)_
 
 ## `csdx content-type:details`
 
-display Content Type details
+Display Content Type details
 
 ```
 USAGE
-  $ csdx content-type:details
+  $ csdx content-type:details -c <value> [-s <value> | -a <value>] [-k <value> | ] [-a <value>] [-p]
 
-OPTIONS
-  -a, --token-alias=token-alias    management token alias
-  -c, --content-type=content-type  (required) Content Type UID
-  -p, --[no-]path                  show path column
-  -s, --stack=stack                Stack UID
+FLAGS
+  -a, --alias=<value>          Alias of the management token
+  -a, --token-alias=<value>    Management token alias
+  -c, --content-type=<value>   (required) Content Type UID
+  -k, --stack-api-key=<value>  Stack API Key
+  -p, --[no-]path              show path column
+  -s, --stack=<value>          Stack UID
+
+DESCRIPTION
+  Display Content Type details
 
 EXAMPLES
-  $ csdx content-type:details -s "xxxxxxxxxxxxxxxxxxx" -c "home_page"
-  $ csdx content-type:details -a "management token" -c "home_page"
-  $ csdx content-type:details -a "management token" -c "home_page" --no-path
+  $ csdx content-type:details --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page"
+
+  $ csdx content-type:details --alias "management token" --content-type "home_page"
+
+  $ csdx content-type:details --alias "management token" --content-type "home_page" --no-path
 ```
 
-_See code: [src/commands/content-type/details.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.7/src/commands/content-type/details.ts)_
+_See code: [src/commands/content-type/details.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.1.0/src/commands/content-type/details.ts)_
 
 ## `csdx content-type:diagram`
 
-create a visual diagram of a Stack's Content Types
+Create a visual diagram of a Stack's Content Types
 
 ```
 USAGE
-  $ csdx content-type:diagram
+  $ csdx content-type:diagram -o <value> -d portrait|landscape -t svg|dot [-s <value> | -a <value> | -a <value>] [-k
+    <value> |  | ]
 
-OPTIONS
-  -a, --token-alias=token-alias       management token alias
-  -d, --direction=portrait|landscape  (required) [default: portrait] graph orientation
-  -o, --output=output                 (required) full path to output
-  -s, --stack=stack                   Stack UID
-  -t, --type=svg|dot                  (required) [default: svg] graph output file type
+FLAGS
+  -a, --alias=<value>          Alias of the management token
+  -a, --token-alias=<value>    Management token alias
+  -d, --direction=<option>     (required) [default: portrait] graph orientation
+                               <options: portrait|landscape>
+  -k, --stack-api-key=<value>  Stack API Key
+  -o, --output=<value>         (required) full path to output
+  -s, --stack=<value>          Stack UID
+  -t, --type=<option>          (required) [default: svg] graph output file type
+                               <options: svg|dot>
+
+DESCRIPTION
+  Create a visual diagram of a Stack's Content Types
 
 EXAMPLES
-  $ csdx content-type:diagram -s "xxxxxxxxxxxxxxxxxxx" -o "content-model.svg"
-  $ csdx content-type:diagram -a "management token" -o "content-model.svg"
-  $ csdx content-type:diagram -a "management token" -o "content-model.svg" -d "landscape"
-  $ csdx content-type:diagram -a "management token" -o "content-model.dot" -t "dot"
+  $ csdx content-type:diagram --stack-api-key "xxxxxxxxxxxxxxxxxxx" --output "content-model.svg"
+
+  $ csdx content-type:diagram --alias "management token" --output "content-model.svg"
+
+  $ csdx content-type:diagram --alias "management token" --output "content-model.svg" --direction "landscape"
+
+  $ csdx content-type:diagram --alias "management token" --output "content-model.dot" --type "dot"
 ```
 
-_See code: [src/commands/content-type/diagram.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.7/src/commands/content-type/diagram.ts)_
+_See code: [src/commands/content-type/diagram.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.1.0/src/commands/content-type/diagram.ts)_
 
 ## `csdx content-type:list`
 
-list all Content Types in a Stack
+List all Content Types in a Stack
 
 ```
 USAGE
-  $ csdx content-type:list
+  $ csdx content-type:list [-s <value> | -a <value> | -a <value>] [-k <value> |  | ] [-o title|modified]
 
-OPTIONS
-  -a, --token-alias=token-alias  management token alias
-  -o, --order=title|modified     [default: title] order by column
-  -s, --stack=stack              Stack UID
+FLAGS
+  -a, --alias=<value>          Alias of the management token
+  -a, --token-alias=<value>    Management token alias
+  -k, --stack-api-key=<value>  Stack API Key
+  -o, --order=<option>         [default: title] order by column
+                               <options: title|modified>
+  -s, --stack=<value>          Stack UID
+
+DESCRIPTION
+  List all Content Types in a Stack
 
 EXAMPLES
-  $ csdx content-type:list -s "xxxxxxxxxxxxxxxxxxx"
-  $ csdx content-type:list -a "management token"
-  $ csdx content-type:list -a "management token" -o modified
+  $ csdx content-type:list --stack-api-key "xxxxxxxxxxxxxxxxxxx"
+
+  $ csdx content-type:list --alias "management token"
+
+  $ csdx content-type:list --alias "management token" --order modified
 ```
 
-_See code: [src/commands/content-type/list.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.0.7/src/commands/content-type/list.ts)_
+_See code: [src/commands/content-type/list.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.1.0/src/commands/content-type/list.ts)_
 <!-- commandsstop -->
