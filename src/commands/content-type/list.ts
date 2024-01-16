@@ -51,7 +51,8 @@ export default class ListCommand extends Command {
       const { flags } = await this.parse(ListCommand)
       this.setup(flags)
       this.contentTypeManagementClient = await managementSDKClient({
-        host: this.cmaHost
+        host: this.cmaHost,
+        'X-CS-CLI': this.context?.analyticsInfo
       })
 
       const spinner = cliux.loaderV2(Command.RequestDataMessage)
