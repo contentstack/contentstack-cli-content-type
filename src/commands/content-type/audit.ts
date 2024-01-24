@@ -48,8 +48,10 @@ export default class AuditCommand extends Command {
     try {
       const { flags } = await this.parse(AuditCommand)
       this.setup(flags)
+      
       this.contentTypeManagementClient = await managementSDKClient({
-        host: this.cmaHost
+        host: this.cmaHost,
+        'X-CS-CLI': this.context?.analyticsInfo
       })
 
       const spinner = cliux.loaderV2(Command.RequestDataMessage)
