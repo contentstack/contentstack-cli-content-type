@@ -75,7 +75,8 @@ export default class DiagramCommand extends Command {
     try {
       const { flags } = await this.parse(DiagramCommand)
       this.contentTypeManagementClient = await managementSDKClient({
-        host: this.cmaHost
+        host: this.cmaHost,
+        'X-CS-CLI': this.context?.analyticsInfo
       })
       this.setup(flags)
 
