@@ -8,7 +8,7 @@
     "@contentstack/cli-command": "^1.2.8",
     "@contentstack/cli-utilities": "^1.4.4",
     "@types/diff2html": "^3.0.0",
-    "@types/git-diff": "^2.0.2",
+    "@types/git-diff": "^2.0.7",
     "@types/hogan.js": "^3.0.0",
     "@types/table": "^6.3.2",
     "@types/tmp": "^0.2.2",
