@@ -14,7 +14,7 @@ export default class DiagramCommand extends Command {
     '$ csdx content-type:diagram --alias "management token" --output "content-model.dot" --type "dot"'
   ]
 
-  static flags: FlagInput = {
+  static flags: any = {
     stack: flags.string({
       char: 's',
       description: 'Stack UID',
