@@ -10,7 +10,7 @@ export default class CompareRemoteCommand extends Command {
     '$ csdx content-type:compare-remote --origin-stack "xxxxxxxxxxxxxxxxxxx" --remote-stack "xxxxxxxxxxxxxxxxxxx" -content-type "home_page"'
   ]
 
-  static flags: FlagInput = {
+  static flags: any = {
     'origin-stack': flags.string({
       char: 'o',
       description: 'Origin Stack API Key',

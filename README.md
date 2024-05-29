@@ -86,7 +86,7 @@ EXAMPLES
   $ csdx content-type:audit --alias "management token" --content-type "home_page"
 ```
 
-_See code: [src/commands/content-type/audit.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.0/src/commands/content-type/audit.ts)_
+_See code: [src/commands/content-type/audit.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/audit.ts)_
 
 ## `csdx content-type:compare`
 
@@ -116,7 +116,7 @@ EXAMPLES
   $ csdx content-type:compare --alias "management token" --content-type "home_page" --left # --right #
 ```
 
-_See code: [src/commands/content-type/compare.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.0/src/commands/content-type/compare.ts)_
+_See code: [src/commands/content-type/compare.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/compare.ts)_
 
 ## `csdx content-type:compare-remote`
 
@@ -138,7 +138,7 @@ EXAMPLES
   $ csdx content-type:compare-remote --origin-stack "xxxxxxxxxxxxxxxxxxx" --remote-stack "xxxxxxxxxxxxxxxxxxx" -content-type "home_page"
 ```
 
-_See code: [src/commands/content-type/compare-remote.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.0/src/commands/content-type/compare-remote.ts)_
+_See code: [src/commands/content-type/compare-remote.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/compare-remote.ts)_
 
 ## `csdx content-type:details`
 
@@ -167,7 +167,7 @@ EXAMPLES
   $ csdx content-type:details --alias "management token" --content-type "home_page" --no-path
 ```
 
-_See code: [src/commands/content-type/details.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.0/src/commands/content-type/details.ts)_
+_See code: [src/commands/content-type/details.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/details.ts)_
 
 ## `csdx content-type:diagram`
 
@@ -202,7 +202,7 @@ EXAMPLES
   $ csdx content-type:diagram --alias "management token" --output "content-model.dot" --type "dot"
 ```
 
-_See code: [src/commands/content-type/diagram.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.0/src/commands/content-type/diagram.ts)_
+_See code: [src/commands/content-type/diagram.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/diagram.ts)_
 
 ## `csdx content-type:list`
 
@@ -231,5 +231,5 @@ EXAMPLES
   $ csdx content-type:list --alias "management token" --order modified
 ```
 
-_See code: [src/commands/content-type/list.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.0/src/commands/content-type/list.ts)_
+_See code: [src/commands/content-type/list.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/list.ts)_
 <!-- commandsstop -->
