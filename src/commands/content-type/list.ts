@@ -12,7 +12,7 @@ export default class ListCommand extends Command {
     '$ csdx content-type:list --alias "management token" --order modified'
   ]
 
-  static flags: FlagInput = {
+  static flags: any = {
     stack: flags.string({
       char: 's',
       description: 'Stack UID',

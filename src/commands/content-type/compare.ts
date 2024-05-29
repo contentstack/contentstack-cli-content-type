@@ -12,7 +12,7 @@ export default class CompareCommand extends Command {
     '$ csdx content-type:compare --alias "management token" --content-type "home_page" --left # --right #'
   ]
 
-  static flags: FlagInput = {
+  static flags: any = {
     stack: flags.string({
       char: 's',
       description: 'Stack UID',
