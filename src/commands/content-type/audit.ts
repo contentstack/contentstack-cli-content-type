@@ -11,7 +11,7 @@ export default class AuditCommand extends Command {
     '$ csdx content-type:audit --alias "management token" --content-type "home_page"'
   ]
 
-  static flags: FlagInput = {
+  static flags: any = {
     stack: flags.string({
       char: 's',
       description: 'Stack UID',
