@@ -12,7 +12,7 @@ export default class DetailsCommand extends Command {
     '$ csdx content-type:details --alias "management token" --content-type "home_page" --no-path'
   ]
 
-  static flags: FlagInput = {
+  static flags: any = {
     stack: flags.string({
       char: 's',
       description: 'Stack UID',
