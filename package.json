@@ -6,7 +6,7 @@
   "bugs": "https://github.com/Contentstack-Solutions/contentstack-cli-content-type/issues",
   "dependencies": {
     "@contentstack/cli-command": "^1.2.17",
-    "@contentstack/cli-utilities": "^1.6.1",
+    "@contentstack/cli-utilities": "^1.6.2",
     "@types/diff2html": "^3.0.0",
     "@types/git-diff": "^2.0.2",
     "@types/hogan.js": "^3.0.0",
