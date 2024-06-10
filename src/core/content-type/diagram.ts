@@ -12,6 +12,8 @@ DiagramNodeType,
 Format
 } from '../../types'
 
+import { sanitizePath } from '@contentstack/cli-utilities';
+
 const theme = {
   graph: {
     fontname: 'Helvetica',
@@ -290,7 +292,7 @@ function flattenFields(fields: DiagramNodeField[], depth = 0, prefix = '') {
 }
 
 function createOutputPath(outputFile: string) {
-  const outputPath = path.resolve(process.cwd(), outputFile)
+  const outputPath = path.resolve(sanitizePath(process.cwd()), sanitizePath(outputFile))
   const dirName = path.dirname(outputPath)
 
   fs.mkdirSync(dirName, {recursive: true})
