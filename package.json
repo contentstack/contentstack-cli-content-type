@@ -18,7 +18,7 @@
     "git-diff": "^2.0.6",
     "moment": "^2.29.1",
     "node-graphviz": "^0.1.1",
-    "table": "^6.8.1",
+    "table": "^6.9.0",
     "tmp": "^0.2.2",
     "tslib": "^2.6.2",
     "url-join": "^4.0.1"
