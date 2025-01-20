@@ -7,7 +7,7 @@
   "dependencies": {
     "@contentstack/cli-command": "^1.2.19",
     "@contentstack/cli-utilities": "^1.6.2",
-    "@types/diff2html": "^3.0.0",
+    "@types/diff2html": "^3.0.3",
     "@types/git-diff": "^2.0.7",
     "@types/hogan.js": "^3.0.0",
     "@types/table": "^6.3.2",
