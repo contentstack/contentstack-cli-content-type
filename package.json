@@ -2,8 +2,8 @@
   "name": "contentstack-cli-content-type",
   "description": "Retrieve information about Content Types in a Stack.",
   "version": "1.2.3",
-  "author": "Michael Davis",
-  "bugs": "https://github.com/Contentstack-Solutions/contentstack-cli-content-type/issues",
+  "author": "Contentstack Developer",
+  "bugs": "https://github.com/contentstack/contentstack-cli-content-type/issues",
   "dependencies": {
     "@contentstack/cli-command": "^1.3.2",
     "@contentstack/cli-utilities": "^1.8.0",
@@ -45,7 +45,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/Contentstack-Solutions/contentstack-cli-content-type",
+  "homepage": "https://github.com/contentstack/contentstack-cli-content-type",
   "keywords": [
     "contentstack",
     "cli",
@@ -60,7 +60,7 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "Contentstack-Solutions/contentstack-cli-content-type",
+  "repository": "contentstack/contentstack-cli-content-type",
   "scripts": {
     "test": "jest",
     "postpack": "rm -f oclif.manifest.json",
