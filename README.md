@@ -1,4 +1,3 @@
-![Node.js CI](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/workflows/Node.js%20CI/badge.svg)
 ![npm](https://img.shields.io/npm/v/contentstack-cli-content-type)
 
 ## Description
@@ -29,7 +28,7 @@ The Content Type's Display Name, UID, Last Modified Date, and Version number is 
     * The ouput format can be either `svg` or `dot`. 
     * The diagram's orientation can be changed, using the `-d landscape|portrait` flag.
     * [GraphViz](https://graphviz.org/) is the layout engine. You can export the generated DOT Language source, using the `-t dot` flag.
-    * ![Diagram Output](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/main/screenshots/starter-app.svg)
+    * ![Diagram Output](https://github.com/contentstack/contentstack-cli-content-type/blob/main/screenshots/starter-app.svg)
 
 ## How to install this plugin
 
@@ -86,7 +85,7 @@ EXAMPLES
   $ csdx content-type:audit --alias "management token" --content-type "home_page"
 ```
 
-_See code: [src/commands/content-type/audit.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/audit.ts)_
+_See code: [src/commands/content-type/audit.ts](https://github.com/contentstack/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/audit.ts)_
 
 ## `csdx content-type:compare`
 
@@ -116,7 +115,7 @@ EXAMPLES
   $ csdx content-type:compare --alias "management token" --content-type "home_page" --left # --right #
 ```
 
-_See code: [src/commands/content-type/compare.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/compare.ts)_
+_See code: [src/commands/content-type/compare.ts](https://github.com/contentstack/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/compare.ts)_
 
 ## `csdx content-type:compare-remote`
 
@@ -138,7 +137,7 @@ EXAMPLES
   $ csdx content-type:compare-remote --origin-stack "xxxxxxxxxxxxxxxxxxx" --remote-stack "xxxxxxxxxxxxxxxxxxx" -content-type "home_page"
 ```
 
-_See code: [src/commands/content-type/compare-remote.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/compare-remote.ts)_
+_See code: [src/commands/content-type/compare-remote.ts](https://github.com/contentstack/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/compare-remote.ts)_
 
 ## `csdx content-type:details`
 
@@ -167,7 +166,7 @@ EXAMPLES
   $ csdx content-type:details --alias "management token" --content-type "home_page" --no-path
 ```
 
-_See code: [src/commands/content-type/details.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/details.ts)_
+_See code: [src/commands/content-type/details.ts](https://github.com/contentstack/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/details.ts)_
 
 ## `csdx content-type:diagram`
 
@@ -202,7 +201,7 @@ EXAMPLES
   $ csdx content-type:diagram --alias "management token" --output "content-model.dot" --type "dot"
 ```
 
-_See code: [src/commands/content-type/diagram.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/diagram.ts)_
+_See code: [src/commands/content-type/diagram.ts](https://github.com/contentstack/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/diagram.ts)_
 
 ## `csdx content-type:list`
 
@@ -231,5 +230,5 @@ EXAMPLES
   $ csdx content-type:list --alias "management token" --order modified
 ```
 
-_See code: [src/commands/content-type/list.ts](https://github.com/Contentstack-Solutions/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/list.ts)_
+_See code: [src/commands/content-type/list.ts](https://github.com/contentstack/contentstack-cli-content-type/blob/v1.2.1/src/commands/content-type/list.ts)_
 <!-- commandsstop -->
