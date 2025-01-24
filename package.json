@@ -1,7 +1,7 @@
 {
   "name": "contentstack-cli-content-type",
   "description": "Retrieve information about Content Types in a Stack.",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "author": "Michael Davis",
   "bugs": "https://github.com/Contentstack-Solutions/contentstack-cli-content-type/issues",
   "dependencies": {
@@ -21,21 +21,21 @@
     "table": "^6.9.0",
     "tmp": "^0.2.3",
     "tslib": "^2.8.1",
-    "url-join": "^4.0.1"
+    "url-join": "^5.0.0"
   },
   "devDependencies": {
-    "@oclif/plugin-help": "^6.0.22",
-    "@types/jest": "^29.1.2",
-    "@types/node": "^10.17.60",
-    "eslint": "^5.16.0",
-    "eslint-config-oclif": "^3.1.0",
-    "eslint-config-oclif-typescript": "^0.1.0",
+    "@oclif/plugin-help": "^6.2.22",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.10",
+    "eslint": "^9.18.0",
+    "eslint-config-oclif": "^3.1.2",
+    "eslint-config-oclif-typescript": "^0.2.0",
     "globby": "^10.0.2",
-    "jest": "^29.3.1",
-    "oclif": "^3.10.0",
-    "ts-jest": "^29.0.3",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.8.4"
+    "jest": "^29.7.0",
+    "oclif": "^3.17.2",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^4.9.5"
   },
   "engines": {
     "node": ">=8.0.0"
