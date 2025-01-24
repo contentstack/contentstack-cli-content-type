@@ -1,6 +1,5 @@
-import moment from 'moment'
-const urljoin = require('url-join')
-
+import moment from 'moment' 
+import urlJoin from 'url-join';
 const TIME_FORMAT = 'L hh:mm:ss a'
 
 export function date(date: any) {
@@ -32,7 +31,7 @@ export function urlPattern(contentType: any) {
   if (!contentType || !contentType.options) return 'Unknown'
   if (!contentType.options.url_pattern) return 'N/A'
 
-  return urljoin(contentType.options.url_prefix, contentType.options.url_pattern)
+  return urlJoin(contentType.options.url_prefix, contentType.options.url_pattern)
 }
 
 export function checked(value: boolean) {
