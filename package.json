@@ -21,13 +21,13 @@
     "table": "^6.9.0",
     "tmp": "^0.2.3",
     "tslib": "^2.8.1",
-    "url-join": "^5.0.0"
+    "url-join": "^4.0.1"
   },
   "devDependencies": {
-    "@oclif/plugin-help": "^6.2.22",
+    "@oclif/plugin-help": "^6.2.25",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.10.10",
-    "eslint": "^9.18.0",
+    "@types/node": "^22.13.1",
+    "eslint": "^9.20.0",
     "eslint-config-oclif": "^3.1.2",
     "eslint-config-oclif-typescript": "^0.2.0",
     "globby": "^10.0.2",
