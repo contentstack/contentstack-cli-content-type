@@ -50,7 +50,7 @@ jobs:
         run: ls -R
       - name: Release
         id: release-plugin
-        uses: JS-DevTools/npm-publish@v4
+        uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
       - name: github-release
