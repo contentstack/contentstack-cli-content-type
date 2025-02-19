@@ -1,4 +1,3 @@
-![Node.js CI](https://github.com/contentstack/contentstack-cli-content-type/workflows/Node.js%20CI/badge.svg)
 ![npm](https://img.shields.io/npm/v/contentstack-cli-content-type)
 
 ## Description
