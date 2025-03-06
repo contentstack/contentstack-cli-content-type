@@ -21,7 +21,7 @@
     "table": "^6.9.0",
     "tmp": "^0.2.3",
     "tslib": "^2.8.1",
-    "url-join": "^5.0.0"
+    "url-join": "^4.0.1"
   },
   "devDependencies": {
     "@oclif/plugin-help": "^6.2.22",
