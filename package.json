@@ -1,7 +1,7 @@
 {
   "name": "contentstack-cli-content-type",
   "description": "Retrieve information about Content Types in a Stack.",
-  "version": "1.2.5",
+  "version": "1.2.3",
   "author": "Contentstack Developer",
   "bugs": "https://github.com/contentstack/contentstack-cli-content-type/issues",
   "dependencies": {
