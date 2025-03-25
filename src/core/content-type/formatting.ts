@@ -1,5 +1,5 @@
 import moment from 'moment' 
-import urlJoin from 'url-join';
+const urlJoin = require('url-join')
 const TIME_FORMAT = 'L hh:mm:ss a'
 
 export function date(date: any) {
