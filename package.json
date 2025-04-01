@@ -5,8 +5,8 @@
   "author": "Contentstack Developer",
   "bugs": "https://github.com/contentstack/contentstack-cli-content-type/issues",
   "dependencies": {
-    "@contentstack/cli-command": "file:/Users/shafeeq.pp/WORKSPACE/CLI/cli-org/cli-v5/cli/packages/contentstack-command/contentstack-cli-command-1.4.0.tgz",
-    "@contentstack/cli-utilities": "file:/Users/shafeeq.pp/WORKSPACE/CLI/cli-org/cli-v5/cli/packages/contentstack-utilities/contentstack-cli-utilities-1.9.0.tgz",
+    "@contentstack/cli-command": "^1.4.0",
+    "@contentstack/cli-utilities": "^1.9.0",
     "@types/diff2html": "^3.0.3",
     "@types/git-diff": "^2.0.7",
     "@types/hogan.js": "^3.0.5",
