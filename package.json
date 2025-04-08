@@ -1,12 +1,12 @@
 {
   "name": "contentstack-cli-content-type",
   "description": "Retrieve information about Content Types in a Stack.",
-  "version": "1.4.0",
+  "version": "1.3.0",
   "author": "Contentstack Developer",
   "bugs": "https://github.com/contentstack/contentstack-cli-content-type/issues",
   "dependencies": {
     "@contentstack/cli-command": "^1.4.0",
-    "@contentstack/cli-utilities": "^1.9.0",
+    "@contentstack/cli-utilities": "^1.10.0",
     "@types/diff2html": "^3.0.3",
     "@types/git-diff": "^2.0.7",
     "@types/hogan.js": "^3.0.5",
