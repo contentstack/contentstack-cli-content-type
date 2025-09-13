@@ -12,7 +12,7 @@
     "@types/hogan.js": "^3.0.5",
     "@types/table": "^6.3.2",
     "@types/tmp": "^0.2.6",
-    "axios": "^1.8.4",
+    "axios": "^1.12.0",
     "cli-ux": "^6.0.9",
     "diff2html": "^3.4.51",
     "git-diff": "^2.0.6",
