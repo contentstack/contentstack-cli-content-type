@@ -110,10 +110,10 @@ export default class CompareCommand extends Command {
       this.printOutput(output, 'changes', flags['content-type'], stack.name)
 
       if (flags.left && flags.left === flags.right) {
-        this.warn('Comparing the same version does not produce useful results.')
+        this.warn('You cannot compare the same version. Please select different versions to compare.')
       }
     } catch (error: any) {
-      this.error(error, { exit: 1, suggestions: error.suggestions })
+      this.error(error?.message || 'An error occurred.', { exit: 1, suggestions: error.suggestions })
     }
   }
 }
