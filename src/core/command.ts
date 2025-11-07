@@ -15,7 +15,7 @@ export default class ContentTypeCommand extends Command {
   setup(flags: any) {
     const authToken = configHandler.get('authtoken')
     if (!authToken) {
-      this.error('You need to login, first. See: auth:login --help', {
+      this.error('You\'re not logged in. Run auth:login to sign in. Use auth:login --help for more details.', {
         exit: 2,
         suggestions: ['https://www.contentstack.com/docs/developers/cli/authentication/']
       })
@@ -24,7 +24,7 @@ export default class ContentTypeCommand extends Command {
     const mTokenAlias = flags['token-alias'] || flags.alias
 
     if (!mTokenAlias && !stackAPIKey) {
-      cliux.print('Error: You must provide either a token alias or a Stack UID.', { color: 'red' })
+      cliux.print('Error: You must provide either a token alias or a stack UID.', { color: 'red' })
       process.exit(1)
     }
 
@@ -33,7 +33,7 @@ export default class ContentTypeCommand extends Command {
 
       if (token.type !== 'management') {
         cliux.print(
-          'Possibly using a delivery token. You may not be able to connect to your Stack. Please use a management token.',
+          'Connection failed. You might be using a delivery token. Use a management token to connect to your stack.',
           { color: 'yellow' }
         )
       }

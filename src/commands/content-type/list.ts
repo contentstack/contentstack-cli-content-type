@@ -67,7 +67,7 @@ export default class ListCommand extends Command {
       const output = buildOutput(contentTypes, flags.order)
       this.printOutput(output, 'Content Types', null, stack.name)
     } catch (error: any) {
-      this.error(error, { exit: 1, suggestions: error.suggestions })
+      this.error(error?.message || 'An error occurred.', { exit: 1, suggestions: error.suggestions })
     }
   }
 }

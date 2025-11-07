@@ -110,7 +110,7 @@ export default class DiagramCommand extends Command {
       const output = await createDiagram(diagramOptions)
       this.log(`Created Graph: ${output.outputPath}`)
     } catch (error: any) {
-      this.error(error, { exit: 1, suggestions: error.suggestions })
+      this.error(error?.message || 'An error occurred.', { exit: 1, suggestions: error.suggestions })
     }
   }
 }
