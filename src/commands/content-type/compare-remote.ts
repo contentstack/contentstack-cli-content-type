@@ -48,7 +48,7 @@ export default class CompareRemoteCommand extends Command {
       const remoteStackApi = flags['remote-stack'] as string
 
       if (originStackApi === remoteStackApi) {
-        this.warn('Comparing the same Stack does not produce useful results.')
+        this.warn('You cannot compare the same stack. Please choose different stacks to compare.')
       }
 
       const spinner = cliux.loaderV2(Command.RequestDataMessage)
@@ -75,7 +75,7 @@ export default class CompareRemoteCommand extends Command {
       const output = await buildOutput(flags['content-type'], originContentTypeResp, remoteContentTypeResp)
       this.printOutput(output, 'changes', flags['content-type'], `${originStackResp.name} <-> ${remoteStackResp.name}`)
     } catch (error: any) {
-      this.error(error, { exit: 1, suggestions: error.suggestions })
+      this.error(error?.message || 'An error occurred.', { exit: 1, suggestions: error.suggestions })
     }
   }
 }

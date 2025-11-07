@@ -71,7 +71,7 @@ export default class AuditCommand extends Command {
       const output = buildOutput(audit.logs, users)
       this.printOutput(output, 'Audit Logs', flags['content-type'], stack.name)
     } catch (error: any) {
-      this.error(error, { exit: 1, suggestions: error.suggestions })
+      this.error(error?.message || 'An error occurred.', { exit: 1, suggestions: error.suggestions })
     }
   }
 }
