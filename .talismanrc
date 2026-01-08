@@ -8,4 +8,16 @@ fileignoreconfig:
     checksum: 8a91f44817d08d0289f754ff02bd53b106bf89b3a8082bdfe1500a3297f25805
   - filename: src/core/command.ts
     checksum: 9deaa9b6edc6698caf2f469263252b83d4f84b2dde7154d78f6340282d136754
+  - filename: src/commands/content-type/audit.ts
+    checksum: df9f0768c90f8e3a15cd70cbb1765a6c6f0dc5a8e4e7e74e42bfa8ca2ebf3bc9
+  - filename: src/commands/content-type/details.ts
+    checksum: db30263b288e1686d1fc8ff593a2e33c727a8d130ca7a943c28277c0985f00ff
+  - filename: src/commands/content-type/diagram.ts
+    checksum: 276a57c16a4aa434ede1058134517feaf190c9c5db2c12116904daed82996303
+  - filename: src/commands/content-type/compare.ts
+    checksum: d618e040ed9f318051094e03f5535051bcea4b8d1b90e3b00339d49f2111f920
+  - filename: src/commands/content-type/list.ts
+    checksum: 57c712c12a8d9a911e732593615651ff63ae53298c4f48cdbabdb6de15104331
+  - filename: src/commands/content-type/compare-remote.ts
+    checksum: 151b32699500c465378c4088240c5a25266141150261313434068740862949a1
 version: "1.0"

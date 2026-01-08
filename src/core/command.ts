@@ -1,5 +1,5 @@
 import { Command } from "@contentstack/cli-command";
-import { configHandler, cliux } from "@contentstack/cli-utilities";
+import { cliux, authenticationHandler } from "@contentstack/cli-utilities";
 import { BuildOutput } from "../types";
 import ContentstackClient from "./contentstack/client";
 
@@ -12,9 +12,9 @@ export default class ContentTypeCommand extends Command {
 
   protected contentTypeManagementClient: any;
 
-  setup(flags: any) {
-    const authToken =
-      configHandler.get("authtoken") || configHandler.get("oauthAccessToken");
+  async setup(flags: any) {
+    await authenticationHandler.getAuthDetails();
+    const authToken = authenticationHandler.accessToken;
     if (!authToken) {
       this.error(
         "You're not logged in. Run auth:login to sign in. Use auth:login --help for more details.",
