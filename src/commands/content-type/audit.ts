@@ -1,77 +1,103 @@
-import Command from '../../core/command'
-import { flags, FlagInput, managementSDKClient, cliux, printFlagDeprecation } from '@contentstack/cli-utilities'
-import buildOutput from '../../core/content-type/audit'
-import { getStack, getUsers, getContentType } from '../../utils'
+import Command from "../../core/command";
+import {
+  flags,
+  managementSDKClient,
+  cliux,
+  printFlagDeprecation,
+  authenticationHandler,
+} from "@contentstack/cli-utilities";
+import buildOutput from "../../core/content-type/audit";
+import { getStack, getUsers, getContentType } from "../../utils";
 
 export default class AuditCommand extends Command {
-  static description = 'Display recent changes to a Content Type'
+  static description = "Display recent changes to a Content Type";
 
   static examples = [
     '$ csdx content-type:audit --stack-api-key "xxxxxxxxxxxxxxxxxxx" --content-type "home_page"',
-    '$ csdx content-type:audit --alias "management token" --content-type "home_page"'
-  ]
+    '$ csdx content-type:audit --alias "management token" --content-type "home_page"',
+  ];
 
   static flags: any = {
     stack: flags.string({
-      char: 's',
-      description: 'Stack UID',
-      exclusive: ['token-alias', 'alias'],
-      parse: printFlagDeprecation(['-s', '--stack'], ['-k', '--stack-api-key'])
+      char: "s",
+      description: "Stack UID",
+      exclusive: ["token-alias", "alias"],
+      parse: printFlagDeprecation(["-s", "--stack"], ["-k", "--stack-api-key"]),
     }),
 
-    'stack-api-key': flags.string({
-      char: 'k',
-      description: 'Stack API Key',
-      exclusive: ['token-alias', 'alias']
+    "stack-api-key": flags.string({
+      char: "k",
+      description: "Stack API Key",
+      exclusive: ["token-alias", "alias"],
     }),
 
-    'token-alias': flags.string({
-      char: 'a',
-      description: 'Management token alias',
-      parse: printFlagDeprecation(['--token-alias'], ['-a', '--alias'])
+    "token-alias": flags.string({
+      char: "a",
+      description: "Management token alias",
+      parse: printFlagDeprecation(["--token-alias"], ["-a", "--alias"]),
     }),
 
     alias: flags.string({
-      char: 'a',
-      description: 'Alias of the management token'
+      char: "a",
+      description: "Alias of the management token",
     }),
 
-    'content-type': flags.string({
-      char: 'c',
-      description: 'Content Type UID',
+    "content-type": flags.string({
+      char: "c",
+      description: "Content Type UID",
       required: true,
-      parse: printFlagDeprecation(['-c'], ['--content-type'])
-    })
-  }
+      parse: printFlagDeprecation(["-c"], ["--content-type"]),
+    }),
+  };
 
   async run() {
     try {
-      const { flags } = await this.parse(AuditCommand)
-      this.setup(flags)
-      
+      const { flags } = await this.parse(AuditCommand);
+      await authenticationHandler.getAuthDetails();
+      const authToken = authenticationHandler.accessToken;
+      if (!authToken) {
+        this.error(
+          "You're not logged in. Run auth:login to sign in. Use auth:login --help for more details.",
+          {
+            exit: 2,
+            suggestions: [
+              "https://www.contentstack.com/docs/developers/cli/authentication/",
+            ],
+          }
+        );
+      }
+      this.setup(flags, authToken);
+
       this.contentTypeManagementClient = await managementSDKClient({
         host: this.cmaHost,
-        'X-CS-CLI': this.context?.analyticsInfo
-      })
+        "X-CS-CLI": this.context?.analyticsInfo,
+      });
 
-      const spinner = cliux.loaderV2(Command.RequestDataMessage)
+      const spinner = cliux.loaderV2(Command.RequestDataMessage);
       await getContentType({
         managementSdk: this.contentTypeManagementClient,
         apiKey: this.apiKey,
-        uid: flags['content-type'],
-        spinner
+        uid: flags["content-type"],
+        spinner,
       });
       const [stack, audit, users] = await Promise.all([
         getStack(this.contentTypeManagementClient, this.apiKey, spinner),
-        this.client.getContentTypeAuditLogs(this.apiKey, flags['content-type'], spinner),
-        getUsers(this.contentTypeManagementClient, this.apiKey, spinner)
-      ])
-      cliux.loaderV2('', spinner)
+        this.client.getContentTypeAuditLogs(
+          this.apiKey,
+          flags["content-type"],
+          spinner
+        ),
+        getUsers(this.contentTypeManagementClient, this.apiKey, spinner),
+      ]);
+      cliux.loaderV2("", spinner);
 
-      const output = buildOutput(audit.logs, users)
-      this.printOutput(output, 'Audit Logs', flags['content-type'], stack.name)
+      const output = buildOutput(audit.logs, users);
+      this.printOutput(output, "Audit Logs", flags["content-type"], stack.name);
     } catch (error: any) {
-      this.error(error?.message || 'An error occurred.', { exit: 1, suggestions: error.suggestions })
+      this.error(error?.message || "An error occurred.", {
+        exit: 1,
+        suggestions: error.suggestions,
+      });
     }
   }
 }
