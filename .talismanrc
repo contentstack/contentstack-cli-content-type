@@ -1,9 +1,11 @@
 fileignoreconfig:
-- filename: .github/workflows/secrets-scan.yml
-  ignore_detectors:
-    - filecontent
-- filename: package-lock.json
-  checksum: e78fc9c4b8032c8a0fd0c0fef9b0b85808aa51e0c3a9c291f8c6227e116705a6
-- filename: src/typings/@contentstack/cli-command.d.ts
-  checksum: 8a91f44817d08d0289f754ff02bd53b106bf89b3a8082bdfe1500a3297f25805
+  - filename: .github/workflows/secrets-scan.yml
+    ignore_detectors:
+      - filecontent
+  - filename: package-lock.json
+    checksum: 68fe962edf95215cf8cd675aa61032cb3b1f26d9a855a0cc47d2da7f60118fbf
+  - filename: src/typings/@contentstack/cli-command.d.ts
+    checksum: 8a91f44817d08d0289f754ff02bd53b106bf89b3a8082bdfe1500a3297f25805
+  - filename: src/core/command.ts
+    checksum: 9deaa9b6edc6698caf2f469263252b83d4f84b2dde7154d78f6340282d136754
 version: "1.0"
