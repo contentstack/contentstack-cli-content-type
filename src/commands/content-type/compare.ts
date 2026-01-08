@@ -68,7 +68,7 @@ export default class CompareCommand extends Command {
   async run() {
     try {
       const { flags } = await this.parse(CompareCommand);
-      await this.setup(flags);
+      this.setup(flags);
       this.contentTypeManagementClient = await managementSDKClient({
         host: this.cmaHost,
         "X-CS-CLI": this.context?.analyticsInfo,

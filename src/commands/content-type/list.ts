@@ -55,7 +55,7 @@ export default class ListCommand extends Command {
   async run() {
     try {
       const { flags } = await this.parse(ListCommand);
-      await this.setup(flags);
+      this.setup(flags);
       this.contentTypeManagementClient = await managementSDKClient({
         host: this.cmaHost,
         "X-CS-CLI": this.context?.analyticsInfo,

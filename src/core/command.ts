@@ -12,9 +12,7 @@ export default class ContentTypeCommand extends Command {
 
   protected contentTypeManagementClient: any;
 
-  async setup(flags: any) {
-    await authenticationHandler.getAuthDetails();
-    const authToken = authenticationHandler.accessToken;
+  setup(flags: any, authToken?: string) {
     if (!authToken) {
       this.error(
         "You're not logged in. Run auth:login to sign in. Use auth:login --help for more details.",

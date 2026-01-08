@@ -44,7 +44,7 @@ export default class CompareRemoteCommand extends Command {
   async run() {
     try {
       const { flags } = await this.parse(CompareRemoteCommand);
-      await this.setup({ alias: undefined, stack: flags["origin-stack"] });
+      this.setup({ alias: undefined, stack: flags["origin-stack"] });
       this.contentTypeManagementClient = await managementSDKClient({
         host: this.cmaHost,
         "X-CS-CLI": this.context?.analyticsInfo,
