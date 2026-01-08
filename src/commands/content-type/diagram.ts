@@ -84,7 +84,7 @@ export default class DiagramCommand extends Command {
         host: this.cmaHost,
         "X-CS-CLI": this.context?.analyticsInfo,
       });
-      await this.setup(flags);
+      this.setup(flags);
 
       const outputPath = flags.output;
 

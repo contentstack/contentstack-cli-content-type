@@ -62,7 +62,7 @@ export default class DetailsCommand extends Command {
   async run() {
     try {
       const { flags } = await this.parse(DetailsCommand);
-      await this.setup(flags);
+      this.setup(flags);
       this.contentTypeManagementClient = await managementSDKClient({
         host: this.cmaHost,
         "X-CS-CLI": this.context?.analyticsInfo,
