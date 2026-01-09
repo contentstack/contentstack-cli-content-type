@@ -11,13 +11,13 @@ fileignoreconfig:
   - filename: src/commands/content-type/audit.ts
     checksum: df9f0768c90f8e3a15cd70cbb1765a6c6f0dc5a8e4e7e74e42bfa8ca2ebf3bc9
   - filename: src/commands/content-type/details.ts
-    checksum: 097682096da7632b396aa07074bd65b8c9a955f3bf841267fdf386c7b21e23d2
+    checksum: db30263b288e1686d1fc8ff593a2e33c727a8d130ca7a943c28277c0985f00ff
   - filename: src/commands/content-type/diagram.ts
-    checksum: bfac9877807cad48faabea9d9e49634eb6a2fe62e97e36114ac70ba469b14ad9
+    checksum: 276a57c16a4aa434ede1058134517feaf190c9c5db2c12116904daed82996303
   - filename: src/commands/content-type/compare.ts
     checksum: 2d650febfa3f4671f716e79bb1f6446273046d7041f980733e5ac306a13f447d
   - filename: src/commands/content-type/list.ts
-    checksum: 5b4cff3a06fd66a615facfd3ad6844019bd8d0d819e147370ca8e09420249c85
+    checksum: e7623d46577a9f5c209fd8d0d5abd0da0a2140f6cce30f68cfe81b29e292585c
   - filename: src/commands/content-type/compare-remote.ts
     checksum: 151b32699500c465378c4088240c5a25266141150261313434068740862949a1
 version: "1.0"
