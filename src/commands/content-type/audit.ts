@@ -4,7 +4,6 @@ import {
   managementSDKClient,
   cliux,
   printFlagDeprecation,
-  authenticationHandler,
 } from "@contentstack/cli-utilities";
 import buildOutput from "../../core/content-type/audit";
 import { getStack, getUsers, getContentType } from "../../utils";
@@ -53,20 +52,7 @@ export default class AuditCommand extends Command {
   async run() {
     try {
       const { flags } = await this.parse(AuditCommand);
-      await authenticationHandler.getAuthDetails();
-      const authToken = authenticationHandler.accessToken;
-      if (!authToken) {
-        this.error(
-          "You're not logged in. Run auth:login to sign in. Use auth:login --help for more details.",
-          {
-            exit: 2,
-            suggestions: [
-              "https://www.contentstack.com/docs/developers/cli/authentication/",
-            ],
-          }
-        );
-      }
-      this.setup(flags, authToken);
+      await this.setup(flags);
 
       this.contentTypeManagementClient = await managementSDKClient({
         host: this.cmaHost,
