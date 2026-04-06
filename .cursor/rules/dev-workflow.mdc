@@ -1,0 +1,18 @@
+---
+description: Local validation before PR — tests, ESLint, coverage, oclif docs
+globs:
+  - src/**/*.ts
+  - tests/**/*.ts
+  - package.json
+  - jest.config.js
+alwaysApply: true
+---
+
+# Development workflow
+
+- Run **`npm test`** before opening a PR; fix failures before review.
+- **`npm run posttest`** runs ESLint on `.ts` files (see [package.json](package.json)); keep lint clean when shipping changes.
+- When changing behavior in **`src/core/`** or **`src/utils/`**, run **`npm run test:coverage`** and ensure coverage does not drop below [jest.config.js](jest.config.js) thresholds.
+- After changing command IDs, flags, or descriptions, regenerate CLI docs with **`npm run prepack`** or the **`version`** script so `README.md` and `oclif.manifest.json` stay aligned.
+
+Full context: [AGENTS.md](../../AGENTS.md) at the repository root.
