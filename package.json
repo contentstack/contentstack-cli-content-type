@@ -1,12 +1,12 @@
 {
   "name": "contentstack-cli-content-type",
   "description": "Retrieve information about Content Types in a Stack.",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "author": "Contentstack Developer",
   "bugs": "https://github.com/contentstack/contentstack-cli-content-type/issues",
   "dependencies": {
-    "@contentstack/cli-command": "^1.7.2",
-    "@contentstack/cli-utilities": "^1.17.4",
+    "@contentstack/cli-command": "^1.8.0",
+    "@contentstack/cli-utilities": "^1.18.1",
     "@types/diff2html": "^3.0.3",
     "@types/git-diff": "^2.0.7",
     "@types/hogan.js": "^3.0.5",
@@ -24,16 +24,16 @@
     "url-join": "^4.0.1"
   },
   "devDependencies": {
-    "@oclif/plugin-help": "^6.2.37",
+    "@oclif/plugin-help": "^6.2.43",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.19.15",
+    "@types/node": "^22.19.17",
     "eslint": "^8.57.1",
-    "eslint-config-oclif": "^6.0.148",
+    "eslint-config-oclif": "^6.0.156",
     "eslint-config-oclif-typescript": "^3.1.14",
     "globby": "^10.0.2",
     "jest": "^29.7.0",
-    "oclif": "^4.22.87",
-    "ts-jest": "^29.4.6",
+    "oclif": "^4.22.96",
+    "ts-jest": "^29.4.9",
     "ts-node": "^10.9.2",
     "typescript": "^4.9.5"
   },
@@ -66,6 +66,7 @@
   "repository": "contentstack/contentstack-cli-content-type",
   "scripts": {
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif manifest && oclif readme",

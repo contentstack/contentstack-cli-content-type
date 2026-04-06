@@ -1,0 +1,16 @@
+---
+description: Jest tests and config for contentstack-cli-content-type
+globs:
+  - tests/**/*.ts
+  - jest.config.js
+alwaysApply: false
+---
+
+# Testing
+
+- Use **Jest** with **ts-jest** per `jest.config.js`. Tests live under **`tests/`** (and may match `*.test.ts` at repo root per config).
+- **Mock HTTP and SDK boundaries** — mock `ContentstackClient`, axios, or fake `managementSDKClient` chains. **No live Contentstack API** calls in unit tests.
+- Run **`npm test`**; **`npm run test:coverage`** for coverage against [jest.config.js](jest.config.js) thresholds; **`posttest`** runs ESLint on `.ts` files — keep both green when shipping changes.
+- Add or update tests for behavioral changes in `src/core/` and `src/utils/` when practical.
+
+Full detail: `.cursor/skills/testing/SKILL.md`; `references/conventions.md` and `references/jest-mocking.md`.
