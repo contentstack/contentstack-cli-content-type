@@ -19,8 +19,8 @@
 ## Commits and CI hygiene
 
 - Do not commit **`describe.only`**, **`it.only`**, **`test.only`**, or **`.skip`** variants.
-- Run **`npm test`** before pushing; use **`npm run test:coverage`** when changing core logic to confirm coverage (see [jest.config.js](../../../../jest.config.js) thresholds and [AGENTS.md](../../../../AGENTS.md)).
+- Run **`npm test`** before pushing; use **`npm run test:coverage`** when changing core logic to confirm coverage (see [jest.config.js](../../../jest.config.js) thresholds and [AGENTS.md](../../../AGENTS.md)).
 
 ## Coverage goal
 
-- Long-term target: about **80%** lines, branches, and functions. Global thresholds in Jest are raised from the baseline as tests are added; see [AGENTS.md](../../../../AGENTS.md).
+- Target and enforcement are documented in [AGENTS.md](../../../AGENTS.md) and [jest.config.js](../../../jest.config.js).
