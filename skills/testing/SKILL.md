@@ -32,15 +32,70 @@ description: >-
 
 When validating changes, run **`npm test`**; ensure **ESLint** still passes (posttest or `eslint` directly). Use **`npm run test:coverage`** when changing `src/core/` or `src/utils/` behavior.
 
-### What to test
+### Naming and structure
 
-- **Pure functions** and **core builders** in `src/core/content-type/` with inputs/outputs mocked at the boundary.
-- **ContentstackClient**: mock `get` on the axios instance or mock the whole module—**no live CMA** or real stack keys in unit tests.
-- **Commands**: prefer testing **core** and **utils** first; command tests may require heavy mocking of `@contentstack/cli-utilities` (auth, cliux, management SDK).
+- Prefer **`it` / `test`** descriptions that state behavior: `should <expected> when <condition>` (or close variants), e.g. `should return sorted titles when order is title`.
+- Group related cases with **`describe`** blocks named after the unit under test (module, function, or command behavior).
+
+### What to test (order)
+
+1. **Pure helpers** and **core builders** in `src/core/content-type/` — easiest to drive with inputs and assert outputs.
+2. **`src/utils/index.ts`** — mock Management SDK / stack boundaries.
+3. **Command classes** — only when needed; they pull in `@contentstack/cli-utilities` (auth, cliux) and need heavier mocks.
+
+In all cases: **pure functions** and **core builders** benefit from inputs/outputs mocked at the boundary; **ContentstackClient** via mock `get` on axios or mock the whole module—**no live CMA** or real stack keys in unit tests. **Commands**: prefer testing **core** and **utils** first; command tests may require heavy mocking of `@contentstack/cli-utilities` (auth, cliux, management SDK).
+
+### Mocking boundaries
+
+- **No live Contentstack API** calls and no real stack keys in unit tests.
+- Mock **`ContentstackClient`** (axios), **Management SDK** chains, or **`authenticationHandler`** as in **Jest mocking** below.
+
+### Jest mocking (this repo)
+
+1. **No live API calls** — Do not hit Contentstack Management API or real stacks in unit tests.
+2. **Mock at the boundary** — Prefer mocking `ContentstackClient` methods, axios, or `@contentstack/cli-utilities` pieces (e.g. `managementSDKClient`, `authenticationHandler`) when testing command flows.
+3. **Coverage** — Follow global thresholds in [jest.config.js](../../jest.config.js) and the summary in [AGENTS.md](../../AGENTS.md).
+
+**Mocking `ContentstackClient`**
+
+Example pattern: spy or replace methods that perform HTTP:
+
+```typescript
+import ContentstackClient from '../src/core/contentstack/client'
+
+jest.mock('../src/core/contentstack/client', () => {
+  return jest.fn().mockImplementation(() => ({
+    getContentTypeAuditLogs: jest.fn().mockResolvedValue({ logs: [] }),
+    getContentTypeReferences: jest.fn().mockResolvedValue({}),
+  }))
+})
+```
+
+Adjust import paths to match the file under test. For tests that import the class from the same path as production, use `jest.mock` with the factory before importing the subject.
+
+**Mocking axios**
+
+If testing code that constructs axios directly, use `jest.mock('axios')` and mock `axios.create` to return an instance whose `get`/`post` resolve with fixture data. Align with [src/core/contentstack/client.ts](../../src/core/contentstack/client.ts).
+
+**Management SDK helpers**
+
+[src/utils/index.ts](../../src/utils/index.ts) uses the stack SDK from `managementSDKClient`. In integration-style tests, pass a **fake** `managementSdk` object with `stack().contentType()...` chains that return Promises with fixture data instead of calling real APIs.
+
+**Style**
+
+- Use `describe` / `it` or `test` with clear names: what behavior, under what condition.
+- Keep tests **deterministic** — no real network, no reliance on local `csdx` auth state unless explicitly using an e2e harness (not assumed here).
+
+### Commits and CI hygiene
+
+- Do not commit **`describe.only`**, **`it.only`**, **`test.only`**, or **`.skip`** variants.
+- Run **`npm test`** before pushing; use **`npm run test:coverage`** when changing core logic to confirm coverage (see [jest.config.js](../../jest.config.js) thresholds and [AGENTS.md](../../AGENTS.md)).
+
+### Coverage goal
+
+- Target and enforcement are documented in [AGENTS.md](../../AGENTS.md) and [jest.config.js](../../jest.config.js).
 
 ## References
 
-- [references/conventions.md](references/conventions.md) — naming, what to test first, no `.only`/`.skip`, coverage goal.
-- [references/jest-mocking.md](references/jest-mocking.md) — mocking boundaries and minimal patterns.
 - [dev-workflow/SKILL.md](../dev-workflow/SKILL.md) — ESLint and CI expectations.
 - [AGENTS.md](../../AGENTS.md) — coverage targets and scripts.
