@@ -7,13 +7,21 @@ description: >-
   diff/compare HTML output, Graphviz diagrams, or oclif readme/manifest workflows.
 ---
 
-# contentstack-cli-content-type
+# Content Type CLI plugin – contentstack-cli-content-type
 
-## Repository role
+## When to use
+
+- Editing commands under `src/commands/content-type/`, `ContentTypeCommand`, or `src/core/command.ts`.
+- Changing CMA REST usage (`ContentstackClient`), Management SDK calls in `src/utils/index.ts`, or error handling in `src/core/contentstack/`.
+- Working on compare/diagram HTML or Graphviz output, or regenerating CLI docs after command changes (see also [dev-workflow/SKILL.md](../dev-workflow/SKILL.md) for exact scripts).
+
+## Instructions
+
+### Repository role
 
 npm package `contentstack-cli-content-type`: a **Contentstack CLI** (`csdx`) plugin that reads Content Type metadata from a stack—list, field details, audit log lines, version or cross-stack comparison, and stack content-model diagrams.
 
-## Code layout
+### Code layout
 
 | Area | Path |
 |------|------|
@@ -25,9 +33,9 @@ npm package `contentstack-cli-content-type`: a **Contentstack CLI** (`csdx`) plu
 | Types | `src/types/index.ts` |
 | Config (pagination limits) | `src/config/index.ts` |
 
-Commands **parse flags**, call **`setup(flags)`** (see below), build **`managementSDKClient`**, then call utils + core builders. See [references/architecture.md](references/architecture.md) and [references/commands.md](references/commands.md).
+Commands **parse flags**, call **`setup(flags)`**, build **`managementSDKClient`**, then call utils + core builders. See [references/architecture.md](references/architecture.md) and [references/commands.md](references/commands.md).
 
-## Authentication and stack identity
+### Authentication and stack identity
 
 1. `authenticationHandler.getAuthDetails()`; must have **access token** or command exits with `auth:login` message (`exit: 2`).
 2. User must pass **either** a **management token alias** (`-a` / `--alias` or `--token-alias`) **or** **stack API key** (`-k` / `--stack-api-key`) or deprecated `--stack` (maps to stack key). If neither: error and `process.exit(1)` (message references “token alias or stack UID”).
@@ -36,21 +44,16 @@ Commands **parse flags**, call **`setup(flags)`** (see below), build **`manageme
 
 **Do not log** tokens, `authorization` / `authtoken` headers, or full CLI credentials.
 
-## Two ways to call APIs
+### Two ways to call APIs
 
 - **Axios `ContentstackClient`**: `GET https://{cmaHost}/v3/...` with default headers `authorization` (if Bearer) or `authtoken`, plus per-request `headers: { api_key }`. Used for audit logs and references. Errors → `ContentstackError` via `buildError`.
 - **Management SDK** (`managementSDKClient({ host, 'X-CS-CLI': ... })`): stack fetch, content types, global fields, content type by version—see `src/utils/index.ts`.
 
-## Build and CLI metadata
+### Build and CLI metadata
 
-From `package.json`:
+`package.json` scripts **`prepack`** and **`version`** drive `tsc`, `oclif manifest`, and `oclif readme`. After changing commands, flags, or descriptions, keep **README.md** and **oclif.manifest.json** in sync—see [dev-workflow/SKILL.md](../dev-workflow/SKILL.md) for commands and workflow.
 
-- **`prepack`**: `rm -rf lib && tsc -b && oclif manifest && oclif readme` — publishable `lib/`, manifest, and README command docs.
-- **`version`**: `oclif readme && git add README.md`.
-
-After changing commands, flags, or descriptions, run the appropriate script so **README** and **oclif.manifest.json** stay in sync.
-
-## Short command names (csdx)
+### Short command names (csdx)
 
 `package.json` → `csdxConfig.shortCommandName`:
 
@@ -63,7 +66,10 @@ After changing commands, flags, or descriptions, run the appropriate script so *
 | `content-type:diagram` | CTDIAG |
 | `content-type:list` | CTLS |
 
-## Further reading
+## References
 
 - [references/architecture.md](references/architecture.md) — command → core mapping, auth flow, CMA shape.
 - [references/commands.md](references/commands.md) — flags, UX notes, files to edit per command.
+- [dev-workflow/SKILL.md](../dev-workflow/SKILL.md) — TypeScript build, ESLint, oclif docs, `npm run prepack`.
+- [testing/SKILL.md](../testing/SKILL.md) — Jest layout, mocks, coverage.
+- [Content Management API](https://www.contentstack.com/docs/developers/apis/content-management-api/) (external).

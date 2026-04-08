@@ -4,7 +4,7 @@
 
 1. **No live API calls** — Do not hit Contentstack Management API or real stacks in unit tests.
 2. **Mock at the boundary** — Prefer mocking `ContentstackClient` methods, axios, or `@contentstack/cli-utilities` pieces (e.g. `managementSDKClient`, `authenticationHandler`) when testing command flows.
-3. **Behavioral changes** — New or changed behavior in `src/core/` or `src/utils/` should come with tests where practical; this repo does not define a CI coverage percentage in the skill—follow whatever the project adds later.
+3. **Coverage** — Follow global thresholds in [jest.config.js](../../../jest.config.js) and the summary in [AGENTS.md](../../../AGENTS.md).
 
 ## Mocking ContentstackClient
 
@@ -25,11 +25,11 @@ Adjust import paths to match the file under test. For tests that import the clas
 
 ## Mocking axios
 
-If testing code that constructs axios directly, use `jest.mock('axios')` and mock `axios.create` to return an instance whose `get`/`post` resolve with fixture data. Align with [src/core/contentstack/client.ts](../../../../src/core/contentstack/client.ts).
+If testing code that constructs axios directly, use `jest.mock('axios')` and mock `axios.create` to return an instance whose `get`/`post` resolve with fixture data. Align with [src/core/contentstack/client.ts](../../../src/core/contentstack/client.ts).
 
 ## Management SDK helpers
 
-[src/utils/index.ts](../../../../src/utils/index.ts) uses the stack SDK from `managementSDKClient`. In integration-style tests, pass a **fake** `managementSdk` object with `stack().contentType()...` chains that return Promises with fixture data instead of calling real APIs.
+[src/utils/index.ts](../../../src/utils/index.ts) uses the stack SDK from `managementSDKClient`. In integration-style tests, pass a **fake** `managementSdk` object with `stack().contentType()...` chains that return Promises with fixture data instead of calling real APIs.
 
 ## Style
 

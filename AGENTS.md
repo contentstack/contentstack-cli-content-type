@@ -1,42 +1,51 @@
-# contentstack-cli-content-type
+# contentstack-cli-content-type – Agent guide
 
-TypeScript npm package: a **Contentstack CLI** (`csdx`) plugin that reads Content Type metadata from a stack—list, field details, audit log lines, same-stack or cross-stack comparison, and stack content-model diagrams. It does not perform bulk mutations on entries or assets.
+**Universal entry point** for contributors and AI agents. Detailed conventions live in **`skills/*/SKILL.md`**.
 
-## Stack
+## What this repo is
 
-- **Language**: TypeScript (`strict` in [tsconfig.json](tsconfig.json))
-- **CLI**: oclif; commands under `src/commands/content-type/`
-- **Tests**: Jest + ts-jest; tests under `tests/` (see [jest.config.js](jest.config.js))
-- **Core logic**: `src/core/content-type/`, shared command base in `src/core/command.ts`, HTTP in `src/core/contentstack/`
+| Field | Detail |
+|-------|--------|
+| **Name:** | [contentstack/contentstack-cli-content-type](https://github.com/contentstack/contentstack-cli-content-type) (`contentstack-cli-content-type` on npm) |
+| **Purpose:** | Contentstack CLI (`csdx`) plugin that reads Content Type metadata from a stack: list, details, audit logs, same-stack or cross-stack JSON compare (HTML diff), and stack content-model diagrams. |
+| **Out of scope (if any):** | Bulk entry/asset mutations, Delivery API consumption, and unrelated HTTP clients—this package focuses on content-type introspection via the Management API patterns documented in the plugin skill. |
 
-## Scripts
+## Tech stack (at a glance)
 
-| Script | Purpose |
-|--------|---------|
-| `npm test` | Run Jest |
-| `npm run posttest` | ESLint on `.ts` files (see [package.json](package.json)) |
-| `npm run test:coverage` | Jest with coverage; terminal summary plus **HTML** report at `coverage/lcov-report/index.html` (see [jest.config.js](jest.config.js)) |
-| `npm run prepack` | `tsc -b`, `oclif manifest`, `oclif readme` — run when commands, flags, or descriptions change |
+| Area | Details |
+|------|---------|
+| Language | TypeScript, **`strict`** ([tsconfig.json](tsconfig.json)), target ES2017, CommonJS |
+| Build | `tsc -b`; output **`lib/`**; **`npm run prepack`** runs compile + `oclif manifest` + `oclif readme` |
+| Tests | Jest + ts-jest; tests under **`tests/`** ([jest.config.js](jest.config.js)) |
+| Lint / coverage | ESLint via **`npm run posttest`** ([.eslintrc](.eslintrc)); Jest coverage **`npm run test:coverage`**, global thresholds in [jest.config.js](jest.config.js) |
+| CLI / runtime | oclif; Node engines per [package.json](package.json); `bin` is `csdx` when installed as a CLI plugin |
 
-## Workflow
+## Commands (quick reference)
 
-- Prefer adding or updating tests for behavioral changes in `src/core/` and `src/utils/`.
-- Do not commit `test.only` / `test.skip` (or `describe.only` / `it.only`).
-- After changing command IDs, flags, or help text, regenerate CLI docs so `README.md` and `oclif.manifest.json` stay aligned (see `prepack` / `version` in [package.json](package.json)).
+| Command type | Command |
+|--------------|---------|
+| Build (publishable) | `npm run prepack` |
+| Test | `npm test` |
+| Test + coverage | `npm run test:coverage` |
+| Lint | `npm run posttest` (or `eslint . --ext .ts --config .eslintrc`) |
 
-## Coverage
+CI: [.github/workflows](.github/workflows) includes policy/SCA/release/issue automation—there is no single `ci.yml` that only runs `npm test`; follow team merge requirements.
 
-- **Target**: **80%** minimum on statements, branches, functions, and lines.
-- **Enforcement**: [jest.config.js](jest.config.js) sets **global** `coverageThreshold` at **80%** for all four metrics. Run `npm run test:coverage` so thresholds apply.
-- **HTML report**: after `npm run test:coverage`, open `coverage/lcov-report/index.html` in a browser. The `coverage/` directory is gitignored.
+## Where the documentation lives: skills
+
+| Skill | Path | What it covers |
+|-------|------|----------------|
+| Dev workflow | [skills/dev-workflow/SKILL.md](skills/dev-workflow/SKILL.md) | Scripts, `tsconfig`, ESLint, Jest/coverage, oclif README/manifest, PR checks |
+| Content Type plugin | [skills/contentstack-cli-content-type/SKILL.md](skills/contentstack-cli-content-type/SKILL.md) | `ContentTypeCommand`, CMA vs SDK, auth, commands, compare/diagram |
+| Testing | [skills/testing/SKILL.md](skills/testing/SKILL.md) | Jest layout, mocks, conventions, coverage |
+| Code review | [skills/code-review/SKILL.md](skills/code-review/SKILL.md) | PR checklist, security and dependency review |
+
+An index with “when to use” hints is in [skills/README.md](skills/README.md).
 
 ## Security
 
 See [SECURITY.md](SECURITY.md) for reporting issues.
 
-## Cursor: rules and skills
+## Using Cursor (optional)
 
-- **Rules index**: [.cursor/rules/README.md](.cursor/rules/README.md) — context-specific `.mdc` rules.
-- **Skills index**: [.cursor/skills/README.md](.cursor/skills/README.md) — `ContentTypeCommand`, CMA client, testing, PR review.
-
-For detailed plugin architecture and commands, start with [.cursor/skills/contentstack-cli-content-type/SKILL.md](.cursor/skills/contentstack-cli-content-type/SKILL.md).
+If you use **Cursor**, [.cursor/rules/README.md](.cursor/rules/README.md) only points to **[AGENTS.md](AGENTS.md)**—same docs as everyone else.
