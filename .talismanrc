@@ -21,3 +21,7 @@ fileignoreconfig:
   - filename: src/commands/content-type/compare-remote.ts
     checksum: 151b32699500c465378c4088240c5a25266141150261313434068740862949a1
 version: "1.0"
+fileignoreconfig:
+- filename: package-lock.json
+  checksum: 352a9a21ff1c81307588632633766850a3aab49a95be50839b25e07aa6424a6b
+version: "1.0"
