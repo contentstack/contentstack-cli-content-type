@@ -1,5 +1,5 @@
 import Command from '../../core/command'
-import { flags, FlagInput, managementSDKClient, cliux, printFlagDeprecation } from '@contentstack/cli-utilities'
+import { flags, managementSDKClient, cliux } from '@contentstack/cli-utilities'
 import buildOutput from '../../core/content-type/compare'
 import { getStack, getContentType } from '../../utils'
 
@@ -13,49 +13,31 @@ export default class CompareCommand extends Command {
   ]
 
   static flags: any = {
-    stack: flags.string({
-      char: 's',
-      description: 'Stack UID',
-      exclusive: ['token-alias'],
-      parse: printFlagDeprecation(['-s', '--stack'], ['-k', '--stack-api-key'])
-    }),
-
     'stack-api-key': flags.string({
       char: 'k',
       description: 'Stack API Key',
-      exclusive: ['token-alias']
-    }),
-
-    'token-alias': flags.string({
-      char: 'a',
-      description: 'Management token alias',
-      parse: printFlagDeprecation(['--token-alias'], ['-a', '--alias'])
+      exclusive: ['alias']
     }),
 
     alias: flags.string({
       char: 'a',
-      description: 'Alias of the management token'
+      description: 'Alias of the management token',
+      exclusive: ['stack-api-key']
     }),
 
     'content-type': flags.string({
-      char: 'c',
       description: 'Content Type UID',
-      required: true,
-      parse: printFlagDeprecation(['-c'], ['--content-type'])
+      required: true
     }),
 
     left: flags.integer({
-      char: 'l',
       description: 'Content Type version, i.e. prev version',
-      dependsOn: ['right'],
-      parse: printFlagDeprecation(['-l'], ['--left'])
+      dependsOn: ['right']
     }),
 
     right: flags.integer({
-      char: 'r',
       description: 'Content Type version, i.e. later version',
-      dependsOn: ['left'],
-      parse: printFlagDeprecation(['-r'], ['--right'])
+      dependsOn: ['left']
     })
   }
 

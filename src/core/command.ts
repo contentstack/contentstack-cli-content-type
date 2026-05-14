@@ -26,12 +26,12 @@ export default class ContentTypeCommand extends Command {
         }
       );
     }
-    const stackAPIKey = flags.stack || flags["stack-api-key"];
-    const mTokenAlias = flags["token-alias"] || flags.alias;
+    const stackAPIKey = flags["stack-api-key"];
+    const mTokenAlias = flags.alias;
 
     if (!mTokenAlias && !stackAPIKey) {
       cliux.print(
-        "Error: You must provide either a token alias or a stack UID.",
+        "Error: You must provide either a management token alias or a stack API key.",
         { color: "red" }
       );
       process.exit(1);
