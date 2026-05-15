@@ -73,6 +73,7 @@
   "repository": "contentstack/contentstack-cli-content-type",
   "scripts": {
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif manifest && oclif readme",
