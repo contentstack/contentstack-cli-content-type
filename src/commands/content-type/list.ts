@@ -1,10 +1,8 @@
 import Command from "../../core/command";
 import {
   flags,
-  FlagInput,
   managementSDKClient,
   cliux,
-  printFlagDeprecation,
 } from "@contentstack/cli-utilities";
 import buildOutput from "../../core/content-type/list";
 import { getStack, getContentTypes } from "../../utils";
@@ -19,36 +17,22 @@ export default class ListCommand extends Command {
   ];
 
   static flags: any = {
-    stack: flags.string({
-      char: "s",
-      description: "Stack UID",
-      exclusive: ["token-alias", "alias"],
-      parse: printFlagDeprecation(["-s", "--stack"], ["-k", "--stack-api-key"]),
-    }),
-
     "stack-api-key": flags.string({
       char: "k",
       description: "Stack API Key",
-      exclusive: ["token-alias", "alias"],
-    }),
-
-    "token-alias": flags.string({
-      char: "a",
-      description: "Management token alias",
-      parse: printFlagDeprecation(["--token-alias"], ["-a", "--alias"]),
+      exclusive: ["alias"],
     }),
 
     alias: flags.string({
       char: "a",
       description: "Alias of the management token",
+      exclusive: ["stack-api-key"],
     }),
 
     order: flags.string({
-      char: "o",
       description: "order by column",
       options: ["title", "modified"],
       default: "title",
-      parse: printFlagDeprecation(["-o"], ["--order"]),
     }),
   };
 
