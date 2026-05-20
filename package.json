@@ -45,7 +45,9 @@
     },
     "shelljs": {
       "glob": "^9.3.5"
-    }
+    },
+    "brace-expansion": "5.0.6",
+    "qs": "6.15.2"
   },
   "engines": {
     "node": ">=8.0.0"
