@@ -1,3 +1,6 @@
+> **This repository is archived.** Development continues in the [cli-plugins](https://github.com/contentstack/cli-plugins) monorepo. Open issues at [cli-plugins/issues](https://github.com/contentstack/cli-plugins/issues).  
+> The npm package name is unchanged: **`contentstack-cli-content-type`**.
+
 ![npm](https://img.shields.io/npm/v/contentstack-cli-content-type)
 
 ## Description
