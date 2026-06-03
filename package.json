@@ -5,30 +5,30 @@
   "author": "Contentstack Developer",
   "bugs": "https://github.com/contentstack/contentstack-cli-content-type/issues",
   "dependencies": {
-    "@contentstack/cli-command": "^1.8.2",
-    "@contentstack/cli-utilities": "^1.18.3",
+    "@contentstack/cli-command": "^1.8.3",
+    "@contentstack/cli-utilities": "^1.18.4",
     "@types/diff2html": "^3.0.3",
     "@types/git-diff": "^2.0.7",
     "@types/hogan.js": "^3.0.5",
     "@types/table": "^6.3.2",
     "@types/tmp": "^0.2.6",
-    "axios": "^1.16.1",
+    "axios": "^1.17.0",
     "cli-ux": "^6.0.9",
     "diff2html": "^3.4.56",
     "git-diff": "^2.0.6",
     "moment": "^2.30.1",
     "node-graphviz": "^0.1.1",
     "table": "^6.9.0",
-    "tmp": "^0.2.5",
+    "tmp": "^0.2.7",
     "tslib": "^2.8.1",
     "url-join": "^4.0.1"
   },
   "devDependencies": {
-    "@oclif/plugin-help": "^6.2.49",
+    "@oclif/plugin-help": "^6.2.50",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.19.19",
     "eslint": "^8.57.1",
-    "eslint-config-oclif": "^6.0.162",
+    "eslint-config-oclif": "^6.0.167",
     "eslint-config-oclif-typescript": "^3.1.14",
     "globby": "^10.0.2",
     "jest": "^29.7.0",
@@ -45,7 +45,7 @@
     },
     "qs": "6.15.2",
     "external-editor": {
-      "tmp": "0.2.5"
+      "tmp": "0.2.7"
     },
     "shelljs": {
       "glob": "^9.3.5"
