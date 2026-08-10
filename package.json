@@ -39,7 +39,7 @@
   },
   "overrides": {
     "eslint-plugin-perfectionist": "^2.11.0",
-    "fast-uri": "^3.1.2",
+    "fast-uri": "^3.1.5",
     "minimatch": {
       "brace-expansion": "5.0.6"
     },
